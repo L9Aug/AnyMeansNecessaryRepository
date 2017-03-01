@@ -6,8 +6,8 @@ using UnityEditor;
 
 public class FileSizeTest : EditorWindow
 {
-    static bool ShowPathNames;
-    static bool ShowErrorFiles;
+    static bool ShowPathNames = true;
+    static bool ShowErrorFiles = true;
     List<string> filePaths = new List<string>();
     static List<string> ErrorFiles = new List<string>();
 
@@ -31,6 +31,8 @@ public class FileSizeTest : EditorWindow
         DrawFilePath();
         GUILayout.Space(10);
         GetButtonInput();
+        GUILayout.Space(10);
+        DrawErrorFiles();
     }
 
     void TestFilepathFiles(string path)
@@ -88,8 +90,10 @@ public class FileSizeTest : EditorWindow
             {
                 for(int i = 0; i < ErrorFiles.Count; ++i)
                 {
+                    GUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField("Filepath: ", GUILayout.Width(51));
-                    ErrorFiles[i] = EditorGUILayout.TextField(ErrorFiles[i]);
+                    EditorGUILayout.TextField(ErrorFiles[i]);
+                    GUILayout.EndHorizontal();
                 }
             }
         }
