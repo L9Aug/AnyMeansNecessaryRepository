@@ -17,6 +17,7 @@ public class SkillsController : MonoBehaviour
     [HideInInspector]
     public int[] SkillValues = new int[30];
 
+
     public enum Skills
     {
         // Stealth Skills
