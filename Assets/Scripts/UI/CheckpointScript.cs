@@ -55,7 +55,7 @@ public class CheckpointScript : MonoBehaviour {
                 ActivateCheckpoint();
                 XMLManager.instance.xmlstoredata();
                 XMLManager.instance.saveEnemy();
-
+                //kjgkjgjkgkjgkjgkv
             }
         }
     }
