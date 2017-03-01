@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu MenuOfPause;
     #region State Machine Variables
 
-    public enum PausedMachine { None, Shop, Dialog, Console, PausedMenu };
+    public enum PausedMachine { None, Shop, Dialog, Console, PausedMenu, SceneTransPrompt };
     public enum PausedMenuMachine { Menu, Skills, Inventory, Map, Options };
 
     StateMachine PauseStateMachine;
@@ -32,6 +33,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject SkillTreeScreen;
     public GameObject SniperScopeUI;
     public GameObject ShopScreen;
+    public GameObject SceneTransScreen;
 
     public GameObject DialogScreen;
 
@@ -83,7 +85,12 @@ public class PauseMenu : MonoBehaviour
         //#endif
     }
 
-   
+    public void SceneTransition()
+    {
+        // SceneManager.LoadSceneAsync("");
+        Resume();
+        SceneManager.LoadScene("MilitaryMissionV4");
+    }
 
     void quit() //quits game
     {
@@ -337,6 +344,21 @@ public class PauseMenu : MonoBehaviour
         ConsoleController.CC.isConsoleActive = false;
     }
 
+    void BeginSceneTrans()
+    {
+        SceneTransScreen.SetActive(true);
+    }
+
+    void SceneTransUpdate()
+    {
+
+    }
+
+    void EndSceneTrans()
+    {
+        SceneTransScreen.SetActive(false);
+    }
+
     void BeginPausedMenu()
     {
 
@@ -477,6 +499,11 @@ public class PauseMenu : MonoBehaviour
         return PausedGoto == PausedMachine.Console;
     }
 
+    bool IsSceneTransTarget()
+    {
+        return PausedGoto == PausedMachine.SceneTransPrompt;
+    }
+
     bool IsPausedMenuTarget()
     {
         return PausedGoto == PausedMachine.PausedMenu;
@@ -518,6 +545,7 @@ public class PauseMenu : MonoBehaviour
         BoolCondition IsShopTargetCond = new BoolCondition(IsShopTarget);
         BoolCondition IsDialogTargetCond = new BoolCondition(IsDialogTarget);
         BoolCondition IsConsoleTargetCond = new BoolCondition(IsConsoleTarget);
+        BoolCondition IsSceneTransTargetCond = new BoolCondition(IsSceneTransTarget);
         BoolCondition IsPausedMenuTargetCond = new BoolCondition(IsPausedMenuTarget);
 
         BoolCondition IsMenuTargetCond = new BoolCondition(IsMenuTarget);
@@ -535,7 +563,8 @@ public class PauseMenu : MonoBehaviour
         Transition GotoShop = new Transition("Go To Shop", IsShopTargetCond);
         Transition GotoDialog = new Transition("Go To Dialog", IsDialogTargetCond);
         Transition GotoConsole = new Transition("Go To Console", IsConsoleTargetCond);
-        Transition GotoPausedMenu = new Transition("Go To PausedMenu", IsPausedMenuTargetCond);
+        Transition GotoSceneTrans = new Transition("Go To Scene Trans", IsSceneTransTargetCond);
+        Transition GotoPausedMenu = new Transition("Go To Paused Menu", IsPausedMenuTargetCond);
 
         Transition LeavePausedMenu = new Transition("Leave Paused Menu", IsGameNotPausedCond);
 
@@ -562,7 +591,7 @@ public class PauseMenu : MonoBehaviour
 
         // Level 1 states : Paused State Machine
         State PausedEntryState = new State("Entry State",
-            new List<Transition>() { GotoShop, GotoDialog, GotoConsole, GotoPausedMenu },
+            new List<Transition>() { GotoShop, GotoDialog, GotoConsole, GotoPausedMenu, GotoSceneTrans },
             null,
             null,
             null);
@@ -590,6 +619,12 @@ public class PauseMenu : MonoBehaviour
             new List<Action>() { BeginPausedMenu },
             new List<Action>() { PausedMenuUpdate },
             new List<Action>() { EndPausedMenu });
+
+        State SceneTransitionPromptState = new State("Scene Transition Prompt",
+            new List<Transition>() { LeavePaused },
+            new List<Action>() { BeginSceneTrans },
+            new List<Action>() { SceneTransUpdate },
+            new List<Action>() { EndSceneTrans });
 
         // Level 2 States : Paused Menu State Machine
         State PausedMenuEntryState = new State("Entry State",
@@ -637,6 +672,7 @@ public class PauseMenu : MonoBehaviour
         GotoShop.SetTargetState(ShopState);
         GotoDialog.SetTargetState(DialogState);
         GotoConsole.SetTargetState(ConsoleState);
+        GotoSceneTrans.SetTargetState(SceneTransitionPromptState);
         GotoPausedMenu.SetTargetState(PausedMenuState);
 
         LeavePausedMenu.SetTargetState(PausedMenuEntryState);

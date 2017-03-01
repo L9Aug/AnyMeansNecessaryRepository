@@ -22,7 +22,7 @@ public class ItemEffects : MonoBehaviour {
         if (itemButton.GetComponent<ItemEnum>().thisItem == ItemEnum.Item.Pistol)
         {
             //equip pistol model, change ammo
-            print(itemButton.GetComponent<ItemEnum>().thisItem);
+            //print(itemButton.GetComponent<ItemEnum>().thisItem);
         }
 
         else if (itemButton.GetComponent<ItemEnum>().thisItem == ItemEnum.Item.SilencedPistol)
