@@ -72,6 +72,7 @@ public class FileSizeTest : EditorWindow
     {
         if (GUILayout.Button("Run Test."))
         {
+            ErrorFiles.Clear();
             // run func.
             for(int i = 0; i < filePaths.Count; ++i)
             {
