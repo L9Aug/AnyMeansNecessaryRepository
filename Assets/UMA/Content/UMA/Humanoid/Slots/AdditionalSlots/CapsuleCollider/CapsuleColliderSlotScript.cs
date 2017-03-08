@@ -61,7 +61,7 @@ namespace UMA
             }
 
 			capsule.radius = umaData.characterRadius;
-			capsule.height = umaData.characterHeight;
+			capsule.height = umaData.characterHeight - 0.04f;
 			capsule.center = new Vector3(0, capsule.height * 0.5f, 0);
             capsule.material = PM;
         }

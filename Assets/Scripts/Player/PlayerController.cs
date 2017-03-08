@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementController PMC;
     private EquipmentController equipmentController;
     private CameraController cameraController;
+    private bool CanShoot = false;
 
     /// <summary>
     /// Player State Machine
@@ -45,8 +46,8 @@ public class PlayerController : MonoBehaviour
     private float DeathTimer = 0;
     private float DeathLength = 5;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         PC = this;
         AnimTest();
@@ -57,22 +58,15 @@ public class PlayerController : MonoBehaviour
         cameraController = GetComponent<CameraController>();
         equipmentController.UpdateEquipment();
         SetupStateMachine();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        // moved to Pause Menu so that the player has not option of control when the game is paused.
-        //PSM.SMUpdate();
-	}
+    }
 
     public void SetInfiniteAmmo(bool doWe)
     {
         equipmentController.InfiniteAmmo = doWe;
-        foreach(GameObject go in equipmentController.EquipmentOptions)
+        foreach (GameObject go in equipmentController.EquipmentOptions)
         {
             BaseGun gun = go.GetComponent<BaseGun>();
-            if(gun != null)
+            if (gun != null)
             {
                 gun.InfiniteAmmo = doWe;
             }
@@ -81,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     bool AnimTest()
     {
-        if(anim == null)
+        if (anim == null)
         {
             anim = GetComponent<Animator>();
         }
@@ -90,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     public void HealthCheck(float Health, float HealthChanged, float armour)
     {
-        if(Health <= 0 && !Undying)
+        if (Health <= 0 && !Undying)
         {
             Dying = true;
         }
@@ -102,13 +96,18 @@ public class PlayerController : MonoBehaviour
         {
             if (CurrentWeapon != null)
             {
-                if(CurrentWeapon is Sniper)
+                if (CurrentWeapon is Sniper)
                 {
                     isADS = Input.GetButton("Aim");
                     ((Sniper)CurrentWeapon).isADS = isADS;
                 }
 
-                if (Input.GetButton("Fire"))
+                if (Input.GetButtonDown("Fire"))
+                {
+                    SetCanShoot(true);
+                }
+
+                if (Input.GetButton("Fire") && CanShoot)
                 {
                     // 1 << 10 is the AI layer.
                     if (CurrentWeapon.Fire(GunTarget, 1 << 10, 0, false, true))
@@ -118,6 +117,11 @@ public class PlayerController : MonoBehaviour
                             anim.SetTrigger("Fire");
                         }
                     }
+                }
+
+                if (Input.GetButtonUp("Fire"))
+                {
+                    SetCanShoot(false);
                 }
 
                 if (Input.GetButton("Reload"))
@@ -133,10 +137,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetCanShoot(bool canShoot)
+    {
+        CanShoot = canShoot;
+    }
+
     public void AddBleedDamage(GameObject projectile)
     {
         Projectile proj = projectile.GetComponent<Projectile>();
-        if(proj != null)
+        if (proj != null)
         {
             proj.CollisionCallbacks.Add(AddBleedDamage);
         }
@@ -159,7 +168,7 @@ public class PlayerController : MonoBehaviour
         LayerMask mask = 1 << 8; // 1 << 8 is the player layer.
         mask = ~mask; // flip the mask to hit all but the player.
         Debug.DrawRay(CameraRay.origin, CameraRay.direction * 10f, Color.red, 1);
-        if(Physics.Raycast(CameraRay, out hit, 1000f, mask))
+        if (Physics.Raycast(CameraRay, out hit, 1000f, mask))
         {
             return hit.point;
         }
@@ -176,18 +185,18 @@ public class PlayerController : MonoBehaviour
 
     void LootingCheck(GameObject LootingTarget)
     {
-        if(LootingTarget != null)
+        if (LootingTarget != null)
         {
-            if(LootingTarget.GetComponent<LootComponent>() != null && LootingTarget.GetComponent<Base_Enemy>() != null)
+            if (LootingTarget.GetComponent<LootComponent>() != null && LootingTarget.GetComponent<Base_Enemy>() != null)
             {
-                if(LootingTarget.GetComponent<Base_Enemy>()._state == Base_Enemy.State.Dead)
+                if (LootingTarget.GetComponent<Base_Enemy>()._state == Base_Enemy.State.Dead)
                 {
                     // can loot message
-                    if(!LootingTarget.GetComponent<LootComponent>().HasBeenLooted) UIElements.ContextText.GetComponent<UnityEngine.UI.Text>().text = "Press 'f' to loot.";
+                    if (!LootingTarget.GetComponent<LootComponent>().HasBeenLooted) UIElements.ContextText.GetComponent<UnityEngine.UI.Text>().text = "Press 'f' to loot.";
                     if (Input.GetButtonDown("Interact") && PMC.PMSM.CurrentState.Name != "Takedown")
                     {
                         PerformLooting(LootingTarget);
-                    }                    
+                    }
                 }
             }
         }
@@ -195,27 +204,27 @@ public class PlayerController : MonoBehaviour
 
     void TakedownCheck(GameObject TakedownTarget)
     {
-		if (TakedownTarget != null && !Enemy_Patrol.detected)
+        if (TakedownTarget != null && !Enemy_Patrol.detected)
         {
-            if(TakedownTarget.GetComponent<Base_Enemy>() != null)
+            if (TakedownTarget.GetComponent<Base_Enemy>() != null)
             {
-                if(TakedownTarget.GetComponent<Base_Enemy>()._state != Base_Enemy.State.Dead)
+                if (TakedownTarget.GetComponent<Base_Enemy>()._state != Base_Enemy.State.Dead)
                 {
                     // can takedown message.
                     UIElements.ContextText.GetComponent<UnityEngine.UI.Text>().text = "Press 'f' to Takedown.";
-                    if(Input.GetButtonDown("Interact") && PMC.PMSM.CurrentState.Name != "Looting")
+                    if (Input.GetButtonDown("Interact") && PMC.PMSM.CurrentState.Name != "Looting")
                     {
                         PerformTakedown(TakedownTarget);
                     }
                 }
             }
-		}
+        }
     }
 
     void PerformLooting(GameObject Target)
     {
         LootComponent tempComp = Target.GetComponent<LootComponent>();
-        if(tempComp != null)
+        if (tempComp != null)
         {
             if (!tempComp.HasBeenLooted)
             {
@@ -260,17 +269,17 @@ public class PlayerController : MonoBehaviour
 
     GameObject CheckTakedownFOV()
     {
-        if(AIInRange.Count > 0)
+        if (AIInRange.Count > 0)
         {
             GameObject returnObject = null;
 
             List<GameObject> AIInFoV = new List<GameObject>();
 
-            for(int i = 0; i < AIInRange.Count; ++i) //search for the ai that is most in front of the player.
+            for (int i = 0; i < AIInRange.Count; ++i) //search for the ai that is most in front of the player.
             {
                 Vector3 DirToTarget = AIInRange[i].transform.position - transform.position;
                 float angle = Vector3.Angle(transform.forward, DirToTarget);
-                if(angle < (TakedownFOV / 2f))
+                if (angle < (TakedownFOV / 2f))
                 {
                     AIInFoV.Add(AIInRange[i]);
                 }
@@ -281,7 +290,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < AIInFoV.Count; ++i) // of the AI that are in the FoV of the player find the one closest to the player.
             {
                 float testDist = Vector3.Distance(transform.position, AIInFoV[i].transform.position);
-                if(testDist < SmallestDist)
+                if (testDist < SmallestDist)
                 {
                     SmallestDist = testDist;
                     returnObject = AIInFoV[i];
@@ -290,13 +299,13 @@ public class PlayerController : MonoBehaviour
 
             return returnObject;
         }
-        
+
         return null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Base_Enemy>() != null)
+        if (other.GetComponent<Base_Enemy>() != null)
         {
             if (!AIInRange.Contains(other.gameObject))
             {
@@ -307,7 +316,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-		if(other.GetComponent<Base_Enemy>() != null)
+        if (other.GetComponent<Base_Enemy>() != null)
         {
             if (AIInRange.Contains(other.gameObject))
             {
@@ -358,7 +367,7 @@ public class PlayerController : MonoBehaviour
     private void DeadUpdate()
     {
         DeathTimer -= Time.deltaTime;
-        if(DeathTimer <= 0)
+        if (DeathTimer <= 0)
         {
             pauseMenu.reloadCheckpoint();
         }

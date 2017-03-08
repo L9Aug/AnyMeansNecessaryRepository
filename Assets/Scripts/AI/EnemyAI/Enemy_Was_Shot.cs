@@ -54,11 +54,11 @@ public class Enemy_Was_Shot : MonoBehaviour {
 
 
         distToLastPos = transform.position - playerLastPos;
-        Debug.Log(GetComponent<FieldOfView>().FindVisibleTargets());
+        //Debug.Log(GetComponent<FieldOfView>().FindVisibleTargets());
 
         if (gameObject.tag != "Sniper")
         {
-            Debug.Log(Agent);
+            //Debug.Log(Agent);
             Agent.speed = 1;
             GetComponent<NavMeshAgent>().SetDestination(playerLastPos);
         }
