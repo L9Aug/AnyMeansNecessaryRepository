@@ -249,9 +249,10 @@ public class PauseMenu : MonoBehaviour
         {
             if(Input.GetButtonDown("Interact"))
             {
-                //SetTransitionTarget(true, PausedMachine.Dialog);
+                SetTransitionTarget(true, PausedMachine.Dialog);
             }
         }
+      
 
         if(PlayerController.PC != null)
         {

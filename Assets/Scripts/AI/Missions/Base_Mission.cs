@@ -13,19 +13,22 @@ public class Base_Mission : Mission_Giver
 
     private GameObject canvas;
     private GameObject _togglePrefab;
+    public GameObject ObjectivePos;
     public GameObject _TooglePrefab
     {
         get { return _togglePrefab; }
         set { _togglePrefab = value; }
     }
 
+
+  
     public void MissonDetails(string text, int mission)
     {
         _TooglePrefab = (GameObject)Resources.Load("Toggle");
 
         _TooglePrefab = (GameObject)Instantiate(_TooglePrefab, Vector3.zero, Quaternion.identity);
 
-        _TooglePrefab.transform.parent = GameObject.Find("PlayTimeHud").transform;
+        _TooglePrefab.transform.parent = ObjectivePos.transform;
 
         _TooglePrefab.GetComponent<RectTransform>().transform.localPosition = new Vector3(459, -mission * 25+25, 0);
         _TooglePrefab.GetComponent<RectTransform>().transform.localScale = new Vector3(1, 1, 1);

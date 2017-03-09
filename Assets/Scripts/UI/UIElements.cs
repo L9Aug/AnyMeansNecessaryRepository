@@ -13,6 +13,7 @@ public class UIElements : MonoBehaviour {
 
     public GameObject inventoryItems;
 
+    public Image alertedimage;
     public Slider healthBar;
     public Slider armourBar;
     public Slider xpBar;
@@ -20,6 +21,7 @@ public class UIElements : MonoBehaviour {
     public Text ammoCount;
     public Text contextText;
     public static GameObject ContextText;
+    public static GameObject AlertedImage;
 
     public Texture rifle;
     public Texture tranqPistol;
@@ -32,6 +34,7 @@ public class UIElements : MonoBehaviour {
         ammoCount.text = ammo.ToString() + "/30";
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
         ContextText = contextText.gameObject;
+        AlertedImage = alertedimage.gameObject;
         //ContextText = FindObjectOfType<Text>
         //print(requiredXpForLevel);
     }
@@ -39,7 +42,7 @@ public class UIElements : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //healthBar.value = health;
-       
+        //alertedEnemies();
 
 
 
@@ -186,5 +189,17 @@ public class UIElements : MonoBehaviour {
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
         print(requiredXpForLevel);
         
+    }
+
+    public static void alertedEnemies()
+    {
+        if (Enemy_Patrol.detected == true)
+        {
+            AlertedImage.gameObject.SetActive(true);
+        }
+       else
+        { 
+            AlertedImage.gameObject.SetActive(false);
+        }
     }
 }
