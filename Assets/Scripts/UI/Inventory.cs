@@ -43,6 +43,7 @@ public class Inventory : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (weight < maxWeight)
@@ -66,15 +67,15 @@ public class Inventory : MonoBehaviour {
                 AddItem(0);
             }
         }
-
+        */
 
     }
 
- public void AddItem(int id)
-    {  
-      
+    public void AddItem(int id)
+    {
 
-        if (ItemDataBase.InventoryDataBase.itemList[id].currentStack < ItemDataBase.InventoryDataBase.itemList[id].maxItemStack) 
+
+        if (ItemDataBase.InventoryDataBase.itemList[id].currentStack < ItemDataBase.InventoryDataBase.itemList[id].maxItemStack)
         {
             if (ItemDataBase.InventoryDataBase.itemList[id].itemType == Items.TypeofItem.Equipable)
             {
@@ -95,12 +96,10 @@ public class Inventory : MonoBehaviour {
                     ItemDataBase.InventoryDataBase.itemList[id].currentStack++;
                     weight += ItemDataBase.InventoryDataBase.itemList[id].itemWeight;
                     itemButton[id].GetComponentInChildren<Text>().text = ItemDataBase.InventoryDataBase.itemList[id].currentStack.ToString();
-                    
-                    
                 }
             }
 
-            else if(ItemDataBase.InventoryDataBase.itemList[id].itemType == Items.TypeofItem.EquipAndConsume)
+            else if (ItemDataBase.InventoryDataBase.itemList[id].itemType == Items.TypeofItem.EquipAndConsume)
             {
                 if (ItemDataBase.InventoryDataBase.itemList[id].currentStack < 1)
                 {
@@ -116,7 +115,7 @@ public class Inventory : MonoBehaviour {
                 }
             }
 
-            else if(ItemDataBase.InventoryDataBase.itemList[id].itemType == Items.TypeofItem.misc)
+            else if (ItemDataBase.InventoryDataBase.itemList[id].itemType == Items.TypeofItem.misc)
             {
                 if (ItemDataBase.InventoryDataBase.itemList[id].currentStack < 1)
                 {
@@ -148,8 +147,8 @@ public class Inventory : MonoBehaviour {
 
             }
 
-          
-            
+
+
         }
     }
 

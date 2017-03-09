@@ -182,8 +182,7 @@ public class PauseMenu : MonoBehaviour
         SkillsController.SC.LoadSkillsFromFile();
         ItemDataBase.InventoryDataBase.LoadInventory();
 
-        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();
-
+        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();        
     }
 
     #endregion
