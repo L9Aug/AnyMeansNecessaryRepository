@@ -17,20 +17,19 @@ public class SkillsController : MonoBehaviour
     [HideInInspector]
     public int[] SkillValues = new int[30];
 
-
     public enum Skills
     {
         // Stealth Skills
-        Unseen,         SoundRange,     CrouchSpeed,    EnemyPaths,     SnapNeck,
-        Stalker,        Unseen2,        SilencedSniper, SoundRange2,    CrouchSpeed2,
+        Unseen, SoundRange, CrouchSpeed, EnemyPaths, SnapNeck,
+        Stalker, Unseen2, SilencedSniper, SoundRange2, CrouchSpeed2,
 
         // Run & Gun Skills
-        Health,         Damage,         ExplosiveRange, BleedDamage,    ExplosiveTimer,
-        Ammo,           LargerMag,      Health2,        Damage2,        Armour,
+        Health, Damage, ExplosiveRange, BleedDamage, ExplosiveTimer,
+        Ammo, LargerMag, Health2, Damage2, Armour,
 
         // Non-Lethal Skills
-        KnockedOut,     TranqSpeed,     GrabSpeed,      Conversation,   Distraction,
-        TranqUses,      Conversation2,  KnockedOut2,    Distraction2,   TranqUses2,
+        KnockedOut, TranqSpeed, GrabSpeed, Conversation, Distraction,
+        TranqUses, Conversation2, KnockedOut2, Distraction2, TranqUses2,
     }
 
     [HideInInspector]
@@ -48,7 +47,6 @@ public class SkillsController : MonoBehaviour
 
     public void LoadSkillsFromFile()
     {
-
         try
         {
             File.Open(Application.persistentDataPath + "\\SkillsData.txt", FileMode.Open).Close();
@@ -57,8 +55,9 @@ public class SkillsController : MonoBehaviour
         catch (FileNotFoundException)
         {
             SaveSkills();
-            //File.WriteAllText(Application.persistentDataPath + "/SkillsData.txt", "");
         }
+
+        if (CurrentSkills.Count > 0) CurrentSkills.Clear();
 
         string[] skills = File.ReadAllText(Application.persistentDataPath + "/SkillsData.txt").Split('\n');
 
@@ -81,20 +80,19 @@ public class SkillsController : MonoBehaviour
     public void SaveSkills()
     {
         List<string> data = new List<string>();
-        for(int i = 0; i < 30; ++i)
+        for (int i = 0; i < 30; ++i)
         {
             data.Add(TestForSkill((Skills)i).ToString() + "," + TestForApplied(i).ToString());
         }
         File.WriteAllLines(Application.persistentDataPath + "/SkillsData.txt", data.ToArray());
-        //File.WriteAllText(Application.persistentDataPath + "/SkillsData.txt", data);
     }
 
     int TestForSkill(Skills skill)
     {
         int ret = 0;
-        for(int i = 0; i < CurrentSkills.Count; ++i)
+        for (int i = 0; i < CurrentSkills.Count; ++i)
         {
-            if(CurrentSkills[i] == skill)
+            if (CurrentSkills[i] == skill)
             {
                 ret = 1;
                 break;
@@ -120,7 +118,7 @@ public class SkillsController : MonoBehaviour
     /// </summary>
     void ActivateCurrentSkills()
     {
-        foreach(Skills skill in CurrentSkills)
+        foreach (Skills skill in CurrentSkills)
         {
             AddNewSkill(skill, false);
         }
@@ -128,7 +126,7 @@ public class SkillsController : MonoBehaviour
 
     public void AddNewSkill(Skills newSkill, bool AddToCurrentSkillsList = true)
     {
-        switch (newSkill)   
+        switch (newSkill)
         {
             case Skills.Unseen:
                 IncreaseTimeToDetect(SkillValues[(int)newSkill]);
@@ -351,10 +349,10 @@ public class SkillsController : MonoBehaviour
     {
         PlayerController.PC.bleedDamage = true;
         EquipmentController EC = PlayerController.PC.GetComponent<EquipmentController>();
-        foreach(GameObject go in EC.EquipmentOptions)
+        foreach (GameObject go in EC.EquipmentOptions)
         {
             BaseGun bg = go.GetComponent<BaseGun>();
-            if(bg != null)
+            if (bg != null)
             {
                 bg.OnFireCallbacks.Add(PlayerController.PC.AddBleedDamage);
             }
@@ -378,7 +376,7 @@ public class SkillsController : MonoBehaviour
     {
         List<Items> ammoItems = ItemDataBase.InventoryDataBase.itemList.FindAll(x => x.itemType == Items.TypeofItem.misc && x.itemName.Contains("Ammo"));
 
-        foreach(Items item in ammoItems)
+        foreach (Items item in ammoItems)
         {
             item.maxItemStack += (int)((Amount / 100f) * item.maxItemStack);
         }
@@ -457,7 +455,7 @@ public class SkillsController : MonoBehaviour
 
     public void AddAllSkills()
     {
-        for(int i = 0; i < 30; ++i)
+        for (int i = 0; i < 30; ++i)
         {
             if (!CurrentSkills.Contains((Skills)i))
             {
@@ -504,7 +502,7 @@ public class SkillsControllerEditor : Editor
 
         if (displayCurrentSkills)
         {
-            foreach(SkillsController.Skills skill in ((SkillsController)target).CurrentSkills)
+            foreach (SkillsController.Skills skill in ((SkillsController)target).CurrentSkills)
             {
                 EditorGUILayout.LabelField(skill.ToString());
             }
@@ -518,7 +516,7 @@ public class SkillsControllerEditor : Editor
         if (areSkillValuesVisible)
         {
             SkillsController mySkillsCont = (SkillsController)target;
-            for(int i = 0; i < 30; ++i)
+            for (int i = 0; i < 30; ++i)
             {
                 mySkillsCont.SkillValues[i] = EditorGUILayout.IntField(((SkillsController.Skills)i).ToString(), mySkillsCont.SkillValues[i]);
             }
@@ -531,7 +529,7 @@ public class SkillsControllerEditor : Editor
         {
             SkillsController mySkillsCont = (SkillsController)target;
             List<Button> SortedButtons = new List<Button>();
-            for(int i = 0; i < 30; ++i)
+            for (int i = 0; i < 30; ++i)
             {
                 SortedButtons.Add(mySkillsCont.SkillButtons.Find(x => x.GetComponent<SkillTree>().Skill == (SkillsController.Skills)(i)));
             }

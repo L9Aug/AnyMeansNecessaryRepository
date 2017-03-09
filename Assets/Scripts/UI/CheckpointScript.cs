@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckpointScript : MonoBehaviour {
+public class CheckpointScript : MonoBehaviour
+{
 
     bool isActivated;
     public static float storedHealth;
     public static int storedXp;
     public static GameObject[] checkPointList;
-    public static Vector3 []EnemyPosition ;
+    public static Vector3[] EnemyPosition;
 
-   
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         checkPointList = GameObject.FindGameObjectsWithTag("Checkpoint"); //Finds all the checkpoints in the level by searching for the tag	
-        EnemyPosition =  new Vector3[GameObject.FindGameObjectsWithTag("Enemy").Length];
+        EnemyPosition = new Vector3[GameObject.FindGameObjectsWithTag("Enemy").Length];
 
-       // XMLManager.instance.enemyDB.enemList = new System.Collections.Generic.List<EnemDataToSave>(GameObject.FindGameObjectsWithTag("Enemy").Length);
+        // XMLManager.instance.enemyDB.enemList = new System.Collections.Generic.List<EnemDataToSave>(GameObject.FindGameObjectsWithTag("Enemy").Length);
     }
 
     private void ActivateCheckpoint()//creates an active chekpoint, active chekpoint position data is the data that will be stored
@@ -23,10 +25,11 @@ public class CheckpointScript : MonoBehaviour {
         Debug.Log("Active checkpoint called");
         foreach (GameObject checkpoint in checkPointList)
         {
-            checkpoint.GetComponent<CheckpointScript>().isActivated = false;           
+            checkpoint.GetComponent<CheckpointScript>().isActivated = false;
         }
         SkillsController.SC.SaveSkills();
-        isActivated = true;        
+        ItemDataBase.InventoryDataBase.SaveInventory();
+        isActivated = true;
     }
 
     public static Vector3 GetCheckpointPosition()//gathers the active checkpoints position 
@@ -36,9 +39,9 @@ public class CheckpointScript : MonoBehaviour {
         {
             foreach (GameObject checkpoint in checkPointList)
             {
-                if(checkpoint.GetComponent<CheckpointScript>().isActivated == true)
+                if (checkpoint.GetComponent<CheckpointScript>().isActivated == true)
                 {
-                    posValue = checkpoint.transform.position;                    
+                    posValue = checkpoint.transform.position;
                     break;
                 }
             }
@@ -55,7 +58,6 @@ public class CheckpointScript : MonoBehaviour {
                 ActivateCheckpoint();
                 XMLManager.instance.xmlstoredata();
                 XMLManager.instance.saveEnemy();
-                //kjgkjgjkgkjgkjgkv
             }
         }
     }

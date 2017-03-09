@@ -133,7 +133,7 @@ public class PauseMenu : MonoBehaviour
         SetTransitionTarget(false);
     }
 
-    public void reloadCheckpoint()//reloads to checkpoint
+    public void reloadCheckpoint() //reloads to checkpoint
     {
         ReloadAI();
 
@@ -179,6 +179,11 @@ public class PauseMenu : MonoBehaviour
         //UIElements.health = CheckpointScript.storedHealth;// sets health to stored value
         UIElements.xp = CheckpointScript.storedXp;//sets xp to stored value 
         PlayerController.PC.transform.position = XMLManager.instance.enemyDB.PlayerPos;//moves player to checkpoint position
+        SkillsController.SC.LoadSkillsFromFile();
+        ItemDataBase.InventoryDataBase.LoadInventory();
+
+        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();
+
     }
 
     #endregion

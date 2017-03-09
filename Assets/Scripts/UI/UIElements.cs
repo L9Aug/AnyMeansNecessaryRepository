@@ -2,14 +2,15 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIElements : MonoBehaviour {
+public class UIElements : MonoBehaviour
+{
 
     public static float health = 100;
     static int ammo = 30;
     public static int xp = 0;
     private float level = 1;
     private bool healthloss;
-    private bool swapWeapon;    
+    private bool swapWeapon;
 
     public GameObject inventoryItems;
 
@@ -30,7 +31,8 @@ public class UIElements : MonoBehaviour {
     float requiredXpForLevel;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         ammoCount.text = ammo.ToString() + "/30";
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
         ContextText = contextText.gameObject;
@@ -38,11 +40,12 @@ public class UIElements : MonoBehaviour {
         //ContextText = FindObjectOfType<Text>
         //print(requiredXpForLevel);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //healthBar.value = health;
-        //alertedEnemies();
+        alertedEnemies();
 
 
 
@@ -99,7 +102,7 @@ public class UIElements : MonoBehaviour {
             reload.text = "";
         }
         */
-#endregion
+        #endregion
     }
 
     #region TristanFuncs
@@ -107,7 +110,7 @@ public class UIElements : MonoBehaviour {
     {
         //ammo = Ammo;
         ammoCount.text = Ammo + " / " + MaxAmmo;
-        if(Ammo <= 0)
+        if (Ammo <= 0)
         {
             ContextText.GetComponent<Text>().text = "Press 'R' to Reload!";
         }
@@ -124,7 +127,7 @@ public class UIElements : MonoBehaviour {
     }
     #endregion
 
-    private void changeHealth(int value,bool change)
+    private void changeHealth(int value, bool change)
     {
         if (change == false)
         {
@@ -133,7 +136,7 @@ public class UIElements : MonoBehaviour {
         else
         {
             health -= value;
-        }               
+        }
     }
 
     private void toggleObjective(bool isComplete)
@@ -143,7 +146,7 @@ public class UIElements : MonoBehaviour {
 
     private void toggleweaponSprite(bool isSwapped)
     {
-        if(isSwapped == true)
+        if (isSwapped == true)
         {
             weaponImage.texture = (Texture)tranqPistol;
         }
@@ -170,7 +173,7 @@ public class UIElements : MonoBehaviour {
 
     public void InventoryTransformDown()
     {
-            inventoryItems.GetComponent<RectTransform>().localPosition = new Vector3(0, 500, 0);
+        inventoryItems.GetComponent<RectTransform>().localPosition = new Vector3(0, 500, 0);
     }
 
     public void InventoryTransformUp()
@@ -188,18 +191,12 @@ public class UIElements : MonoBehaviour {
         level++;
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
         print(requiredXpForLevel);
-        
+
     }
 
     public static void alertedEnemies()
     {
-        if (Enemy_Patrol.detected == true)
-        {
-            AlertedImage.gameObject.SetActive(true);
-        }
-       else
-        { 
-            AlertedImage.gameObject.SetActive(false);
-        }
+        AlertedImage.SetActive(Enemy_Patrol.detected);
     }
+
 }
