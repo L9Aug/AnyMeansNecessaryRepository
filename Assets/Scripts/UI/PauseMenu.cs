@@ -51,6 +51,10 @@ public class PauseMenu : MonoBehaviour
         disableButtons();
         SetupSateMachine();
         MapCamera.cullingMask |= (1 << 0) | (1 << 8) | (1 << 9) | (1 << 11) | (1 << 12);
+        if (MainMenuButtons.continueGame == true)
+        {
+            reloadCheckpoint();
+        }
     }
 	
 	// Update is called once per frame
@@ -135,6 +139,7 @@ public class PauseMenu : MonoBehaviour
 
     public void reloadCheckpoint() //reloads to checkpoint
     {
+      
         ReloadAI();
 
         ReloadPlayer();
@@ -144,6 +149,9 @@ public class PauseMenu : MonoBehaviour
 
     void ReloadAI()
     {
+
+        XMLManager.instance.LoadEnemy();
+
         Base_Enemy[] Enemy = FindObjectsOfType<Base_Enemy>();
 
         for (int i = 0; i < Enemy.Length; i++)
@@ -162,14 +170,14 @@ public class PauseMenu : MonoBehaviour
                 Enemy[i].GetComponent<HealthComp>().SetHealth(XMLManager.instance.enemyDB.enemList[i].enemHealth);
                 Enemy[i].GetComponent<FieldOfView>().detectedtimer = XMLManager.instance.enemyDB.enemList[i].detectionTimer;
                 Enemy_Patrol.detected = XMLManager.instance.enemyDB.enemList[i].detected;
-                Enemy[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                //Enemy[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
     }
 
     void ReloadPlayer()
     {
-
+       
         PlayerController.PC.transform.rotation = XMLManager.instance.enemyDB.PlayerRot;
         PlayerController.PC.GetComponent<HealthComp>().SetHealth(XMLManager.instance.enemyDB.PlayerHealth);
         if (XMLManager.instance.enemyDB.PlayerHealth > 0)
@@ -181,7 +189,7 @@ public class PauseMenu : MonoBehaviour
         PlayerController.PC.transform.position = XMLManager.instance.enemyDB.PlayerPos;//moves player to checkpoint position
         SkillsController.SC.LoadSkillsFromFile();
         ItemDataBase.InventoryDataBase.LoadInventory();
-
+        
         PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();        
     }
 

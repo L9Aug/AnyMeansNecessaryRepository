@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 public class XMLManager : MonoBehaviour {
 
     public static XMLManager instance;
     public DataBase enemyDB;
+
+    Scene thisScene;
     // Use this for initialization
     void Awake ()
     {
@@ -56,6 +59,8 @@ public class XMLManager : MonoBehaviour {
         instance.enemyDB.PlayerXP = UIElements.xp;
         instance.enemyDB.PlayerPos = PlayerController.PC.transform.position;
         instance.enemyDB.PlayerRot = PlayerController.PC.transform.rotation;
+        thisScene = SceneManager.GetActiveScene();
+        instance.enemyDB.currentScene = thisScene.name;
     }
 
 }
@@ -99,6 +104,7 @@ public class DataBase
     public int ammoCount;
     public Vector3 PlayerPos;
     public Quaternion PlayerRot;
+    public string currentScene;
 
     public DataBase()
     {
