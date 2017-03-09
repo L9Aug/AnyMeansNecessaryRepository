@@ -9,7 +9,7 @@ public class Explosive : MonoBehaviour
     public GameObject ExplosionEffect;
 
     float Timer;
-    int layersToHit = (1 << 8) | (1 << 9);
+    int layersToHit = (1 << 10);
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class Explosive : MonoBehaviour
         Instantiate(ExplosionEffect, transform.position, ExplosionEffect.transform.rotation, transform.parent);
 
         // Checksphere for colliders hit        
-        Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosiveRange, ~layersToHit, QueryTriggerInteraction.Ignore);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosiveRange, layersToHit, QueryTriggerInteraction.Ignore);
 
         // for each collider hit get it's distance from this obj and test line of site.
         for (int i = 0; i < colliders.Length; ++i)
