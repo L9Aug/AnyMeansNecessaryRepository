@@ -266,6 +266,7 @@ public class PauseMenu : MonoBehaviour
     {
         // Disable In-Game UI.
         GamePlayHUD.gameObject.SetActive(false);
+        if (PlayerController.PC != null) PlayerController.PC.SetCanShoot(false);
     }
 
     void BeginPaused()

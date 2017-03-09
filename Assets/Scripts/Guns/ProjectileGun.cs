@@ -22,7 +22,7 @@ public class ProjectileGun : BaseGun
                     nProj.transform.position = Muzzle.position;
                     nProj.transform.LookAt(bulletEndDestination);
 
-                    nProj.GetComponent<Projectile>().StartProjectile(MuzzleVelocity, Damage);
+                    nProj.GetComponent<Projectile>().StartProjectile(MuzzleVelocity, Damage, HeadshotDamage);
 
                     FiredGun(nProj);
                     return true;

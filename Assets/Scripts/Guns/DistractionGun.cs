@@ -28,10 +28,10 @@ public class DistractionGun : BaseGun
                     GameObject nProjectile = Instantiate(Projectile);
                     nProjectile.transform.position = Muzzle.position;
                     nProjectile.transform.forward = Muzzle.forward;
-                    nProjectile.GetComponent<Rigidbody>().AddForce((Target() - Muzzle.position) * MuzleVelocity, ForceMode.VelocityChange);
-
+                    nProjectile.GetComponent<Rigidbody>().AddForce((Target() - Muzzle.position).normalized * MuzleVelocity, ForceMode.VelocityChange);
+                    Debug.DrawLine(Target(), Muzzle.position, Color.red, 1);
                     FiredGun(nProjectile);
-
+                    if (Magazine == 0) Reload();
                     return true;
                 }
                 else

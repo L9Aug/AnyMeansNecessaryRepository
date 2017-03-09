@@ -18,6 +18,9 @@ public class BaseGun : MonoBehaviour {
     // the damage of each bullet if it hits a target.
     public float BaseDamage;
     public float Damage;
+    // The damage to deal if it's a headshot.
+    public float BaseHeadshotDamage;
+    public float HeadshotDamage;
     // the range of the gun.
     public float Range = 1000f;
     // does this gun have infinite Ammo.
