@@ -21,7 +21,7 @@ public class XMLManager : MonoBehaviour {
     public void saveEnemy()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(DataBase));
-        FileStream stream = new FileStream(Application.dataPath + "/DataTest/enemData.xml",FileMode.Create);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/enemData.xml",FileMode.Create);
         serializer.Serialize(stream, enemyDB);
         stream.Close();
     }
@@ -29,7 +29,8 @@ public class XMLManager : MonoBehaviour {
     public void LoadEnemy()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(DataBase));
-        FileStream stream = new FileStream(Application.dataPath + "/DataTest/enemData.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/enemData.xml", FileMode.Open);
+        
         enemyDB = serializer.Deserialize(stream) as DataBase;
         stream.Close();
 

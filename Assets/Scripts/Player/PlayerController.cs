@@ -47,9 +47,14 @@ public class PlayerController : MonoBehaviour
     private float DeathLength = 5;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         PC = this;
+    }
+
+    void Start()
+    {
+        
         AnimTest();
         PlayerCam = Camera.main;
         pauseMenu = FindObjectOfType<PauseMenu>();
