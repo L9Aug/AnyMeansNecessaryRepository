@@ -20,9 +20,11 @@ public class Base_Enemy : MonoBehaviour
 
     void Start()
     {
+        stunTimer = 15;
         canvas = GameObject.Find("mainCanvas");
         _state = State.Patrol;
         Agent = GetComponent<NavMeshAgent>();
+        //Agent.baseOffset = -0.15f;
     }
 
 	public void setState(State newState)
