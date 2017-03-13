@@ -29,9 +29,8 @@ public class ItemDataBase : MonoBehaviour
 
     public void LoadInventory()
     {
-        try
+        if (File.Exists(Application.persistentDataPath + "\\InventoryData.txt"))
         {
-            File.Open(Application.persistentDataPath + "\\InventoryData.txt", FileMode.Open).Close();
             // Continue loading from file.
             string[] items = File.ReadAllText(Application.persistentDataPath + "/InventoryData.txt").Split('\n');
 
@@ -42,7 +41,7 @@ public class ItemDataBase : MonoBehaviour
                 itemList.Add(new Items(items[i].Split(',')));
             }
         }
-        catch (FileNotFoundException)
+        else
         {
             // load Normally
             for (int i = 0; i < newItem.Length; i++)
@@ -51,7 +50,7 @@ public class ItemDataBase : MonoBehaviour
                                                         newItem[i].value, newItem[i].weight, newItem[i].stack,
                                                         newItem[i].maxStack, newItem[i].description, newItem[i].itemType));
             }
-            //SaveInventory();
+            SaveInventory();
         }
     }
 

@@ -10,6 +10,10 @@ public class Dialog : MonoBehaviour {
     {
         UIElements.ContextText.GetComponent<Text>().text = "Press 'F' to talk";
         PauseMenu.MenuOfPause.inDialogRange = true;
+        if(Mission_Giver.missionCompleted)
+        {
+            Dialogbut.staticDialogBtn.dialogText();
+        }
     }
 
     void OnTriggerExit()

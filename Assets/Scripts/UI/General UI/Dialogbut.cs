@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Dialogbut : MonoBehaviour {
 
+    public static Dialogbut staticDialogBtn;
     public static Text staticDialogButton1;
     public static Text staticDialogButton2;
     public static Text staticDialogButton3;
@@ -17,6 +18,7 @@ public class Dialogbut : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        staticDialogBtn = this;
         staticDialogButton1 = DialogButtons[0];
         staticDialogButton2 = DialogButtons[1];
         staticDialogButton3 = DialogButtons[2];
@@ -39,18 +41,32 @@ public class Dialogbut : MonoBehaviour {
         {
 
         }
-        
+        if(Mission_Giver.missionCompleted)
+        {
+
+            Option4();
+        }
+       
+
     }
 
     public void Option2()
     {
         informationRequested = true;
         dialogText();
+
+        if (Mission_Giver.missionCompleted)
+        {
+            Option4();
+        }
     }
 
     public void Option3()
     {
-
+        if (Mission_Giver.missionCompleted)
+        {
+            Option4();
+        }
     }
 
     public void Option4()
@@ -58,9 +74,9 @@ public class Dialogbut : MonoBehaviour {
         PauseMenu.MenuOfPause.SetTransitionTarget();
     }
 
-    void dialogText()
+    public void dialogText()
     {
-        print("dialog");
+
         if (!Mission_Giver.missionAccepted)
         {
             staticNPCResponse.text = dialogOptions[0].NPCResponse;
@@ -90,7 +106,11 @@ public class Dialogbut : MonoBehaviour {
         }
         if(Mission_Giver.missionCompleted)
         {
-
+            staticNPCResponse.text = dialogOptions[3].NPCResponse;
+            staticDialogButton1.text = dialogOptions[3].PlayerResponses[0];
+            staticDialogButton2.text = dialogOptions[3].PlayerResponses[1];
+            staticDialogButton3.text = dialogOptions[3].PlayerResponses[2];
+            staticDialogButton4.text = dialogOptions[3].PlayerResponses[3];
         }
     }
 }

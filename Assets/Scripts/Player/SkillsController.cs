@@ -47,32 +47,29 @@ public class SkillsController : MonoBehaviour
 
     public void LoadSkillsFromFile()
     {
-        try
+        if (File.Exists(Application.persistentDataPath + "\\SkillsData.txt"))
         {
-            File.Open(Application.persistentDataPath + "\\SkillsData.txt", FileMode.Open).Close();
+            if (CurrentSkills.Count > 0) CurrentSkills.Clear();
 
-        }
-        catch (FileNotFoundException)
-        {
-            SaveSkills();
-        }
+            string[] skills = File.ReadAllText(Application.persistentDataPath + "/SkillsData.txt").Split('\n');
 
-        if (CurrentSkills.Count > 0) CurrentSkills.Clear();
-
-        string[] skills = File.ReadAllText(Application.persistentDataPath + "/SkillsData.txt").Split('\n');
-
-        for (int i = 0; i < 30; ++i)
-        {
-            SkillHolder tempHolder = new SkillHolder(skills[i].Split(','));
-            if (tempHolder.Unlocked)
+            for (int i = 0; i < 30; ++i)
             {
-                // Deactivate corrosponding button
-                // SkillButtons[i]
-                if (tempHolder.NeedToApply)
+                SkillHolder tempHolder = new SkillHolder(skills[i].Split(','));
+                if (tempHolder.Unlocked)
                 {
-                    AddNewSkill((Skills)i, true);
+                    // Deactivate corrosponding button
+                    // SkillButtons[i]
+                    if (tempHolder.NeedToApply)
+                    {
+                        AddNewSkill((Skills)i, true);
+                    }
                 }
             }
+        }
+        else
+        {
+            SaveSkills();
         }
 
     }

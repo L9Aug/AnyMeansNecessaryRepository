@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         LayerMask mask = 1 << 8; // 1 << 8 is the player layer.
         mask = ~mask; // flip the mask to hit all but the player.
         Debug.DrawRay(CameraRay.origin, CameraRay.direction * 10f, Color.red, 1);
-        if (Physics.Raycast(CameraRay, out hit, 1000f, mask))
+        if (Physics.Raycast(CameraRay, out hit, 1000f, mask, QueryTriggerInteraction.Ignore))
         {
             return hit.point;
         }

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SkillTree : MonoBehaviour
 {
-    public static int skillPoints;
+    public static int skillPoints = 0;
 
     public bool intialSkill;
     public GameObject [] previousSkill;
@@ -18,7 +18,6 @@ public class SkillTree : MonoBehaviour
 	void Start () {
         currentSkill = this.gameObject.GetComponent<Button>();
         skillCheck();
-        skillPoints = 999;
         SkillPointCounter = GameObject.Find("Number of Points").GetComponent<Text>();
         SkillPointCounter.text = skillPoints.ToString();
     }

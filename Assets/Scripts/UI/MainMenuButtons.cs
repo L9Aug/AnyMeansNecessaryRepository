@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.IO;
 
 public class MainMenuButtons : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class MainMenuButtons : MonoBehaviour {
 
     void Start()
     {
-        if(System.IO.File.Exists(Application.persistentDataPath + "/enemData.xml"))
+        if(File.Exists(Application.persistentDataPath + "/enemData.xml"))
         {
             XMLManager.instance.LoadEnemy();
         }
@@ -24,6 +25,11 @@ public class MainMenuButtons : MonoBehaviour {
 
     public void newGame()
     {
+        // delete Everything in app data.
+        if(File.Exists(Application.persistentDataPath + "\\InventoryData.txt")) File.Delete(Application.persistentDataPath + "\\InventoryData.txt");
+        if(File.Exists(Application.persistentDataPath + "\\SkillsData.txt")) File.Delete(Application.persistentDataPath + "\\SkillsData.txt");
+        if(File.Exists(Application.persistentDataPath + "\\enemData.xml")) File.Delete(Application.persistentDataPath + "\\enemData.xml");
+
         SceneManager.LoadScene("HubWorldBlockoutV2");
     }
 

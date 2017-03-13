@@ -54,7 +54,7 @@ public class KillTarget : Base_Mission
             MissionComplete();
             giveXP(xpReward);
             rewardGiven = true;
-            Debug.Log("test");
+            //Debug.Log("test");
           //DestroyImmediate(_TargetEnemy, true);
         }
     }
