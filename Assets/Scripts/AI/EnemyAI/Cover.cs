@@ -71,13 +71,15 @@ public class Cover : MonoBehaviour
                             {
                                 if (targetsInViewRadius[i].GetComponent<CrouchCover>().isCrouchCover)
                                 {
-                                    GetComponent<Animator>().SetTrigger("Crouch");
+                                    GetComponent<Animator>().SetBool("CoverCrouch", true);
                                 }
                                 hiddenTimer += Time.deltaTime;
                             }
                             else if (hiddenTimer >= hideLenght && allowCover)
                             {
                                 Debug.Log("leaving cover");
+                                GetComponent<Animator>().SetBool("CoverCrouch", false);
+
                                 movingToCover = false;
                                 allowCover = false;
                                 hiddenTimer = 0;

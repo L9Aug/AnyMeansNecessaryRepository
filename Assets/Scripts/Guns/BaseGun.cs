@@ -63,6 +63,7 @@ public class BaseGun : MonoBehaviour {
     public List<OnFireCallback> OnFireCallbacks = new List<OnFireCallback>();
     public UpdateWeapon updateWeapon;
     public ReloadUpdate reloadUpdate;
+    public string WeaponType;
 
 	// Use this for initialization
 	void Start () {
@@ -76,6 +77,26 @@ public class BaseGun : MonoBehaviour {
 	
 	}
 
+    protected void gunAudioSpawn()
+    {
+        if (WeaponType == "SilencedPistol")
+        {
+            Debug.Log("Silenced Pistol fired - No AudioSpere");
+
+        }else if (WeaponType == "AssaultRifle")
+        {
+            this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 20);
+
+        }
+        else if (WeaponType == "Sniper")
+        {
+            this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 35);
+        }
+        else
+        {
+            Debug.Log("Weapontype variable not entered within unity interface");
+        }
+    }
     /// <summary>
     /// Fires this gun if the gun is able to fire.
     /// </summary>
@@ -85,6 +106,7 @@ public class BaseGun : MonoBehaviour {
     /// <param name="DebugDraw">Should the bullet path be drawn using debug draws?</param>
     /// <param name="InGameDraw">Should the bullet path be drawn using in game visulisation?</param>
     /// <returns>Returns True if the gun fired successfully.</returns>
+    /// 
     public virtual bool Fire(TargetFunc Target, LayerMask TargetLayer, float Varience = 0, bool DebugDraw = false, bool InGameDraw = false)
     {
         if (!Reloading)

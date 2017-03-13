@@ -25,7 +25,10 @@ public class KillxEnemies : Base_Mission
     private int _remainingTargets;
 
     void Start () {
-        if(_target == enemyTarget.standard)
+        Player = GameObject.Find("Player");
+        TargetAgentIcon = (GameObject)Resources.Load("Target");
+        spawnTarget(npcAgent, TargetAgentIcon);
+        if (_target == enemyTarget.standard)
         {
             remainingTargets = Base_Enemy.StandardKills + targetAmount;
         }
@@ -46,13 +49,28 @@ public class KillxEnemies : Base_Mission
             remainingTargets = Base_Enemy.killCount + targetAmount;
         }
 
-        MissonDetails("Kill " + remainingTargets + " " + text, questNumber);
 	}
-	
-	void FixedUpdate () {
+    private void intaliseMissionHud()
+    {
+        MissonDetails("Kill " + remainingTargets + " " + text, questNumber);
+    }
+    void Update () {
         //Debug.Log(_remainingTargets + " _remaining - " + remainingTargets);
-        CheckKills();
-        Completed(CheckComplete());
+
+
+        callMission();
+        if (missionAccepted && missionDetailsGiven)
+        {
+            CheckKills();
+            Completed(CheckComplete());
+        }
+        else if (missionAccepted && !missionDetailsGiven)
+        {
+            missionDetailsGiven = true;
+            intaliseMissionHud();
+            // Destroy(TargetAgentIcon); // bugged doesnt destroy it :S
+
+        }
     }
 
     private void CheckKills() 
@@ -95,7 +113,7 @@ public class KillxEnemies : Base_Mission
             questCompletedAmount++;
             MissionComplete();
             giveXP(xpReward);
-            Destroy(GetComponent<KillxEnemies>());
+            rewardGiven = true;
         }
     }
 }
