@@ -18,6 +18,7 @@ public class UIElements : MonoBehaviour {
     public Slider xpBar;
     public Toggle mainObjective;
     public Text ammoCount;
+    public Text contextText;
     public static GameObject ContextText;
 
     public Texture rifle;
@@ -30,7 +31,8 @@ public class UIElements : MonoBehaviour {
     void Start () {
         ammoCount.text = ammo.ToString() + "/30";
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
-        ContextText = GameObject.Find("ContextText");
+        ContextText = contextText.gameObject;
+        //ContextText = FindObjectOfType<Text>
         //print(requiredXpForLevel);
     }
 	

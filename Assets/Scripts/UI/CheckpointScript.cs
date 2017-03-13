@@ -25,6 +25,7 @@ public class CheckpointScript : MonoBehaviour {
         {
             checkpoint.GetComponent<CheckpointScript>().isActivated = false;           
         }
+        SkillsController.SC.SaveSkills();
         isActivated = true;        
     }
 

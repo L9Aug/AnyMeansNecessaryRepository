@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,9 +35,83 @@ public class SkillsController : MonoBehaviour
     [HideInInspector]
     public List<Skills> CurrentSkills = new List<Skills>();
 
+    public List<Button> SkillButtons = new List<Button>();
+
     void Start()
     {
         SC = this;
+        LoadSkillsFromFile();
+    }
+
+    #region File Shenanigans
+
+    public void LoadSkillsFromFile()
+    {
+
+        try
+        {
+            File.Open(Application.persistentDataPath + "\\SkillsData.txt", FileMode.Open).Close();
+
+        }
+        catch (FileNotFoundException)
+        {
+            SaveSkills();
+            //File.WriteAllText(Application.persistentDataPath + "/SkillsData.txt", "");
+        }
+
+        string[] skills = File.ReadAllText(Application.persistentDataPath + "/SkillsData.txt").Split('\n');
+
+        for (int i = 0; i < 30; ++i)
+        {
+            SkillHolder tempHolder = new SkillHolder(skills[i].Split(','));
+            if (tempHolder.Unlocked)
+            {
+                // Deactivate corrosponding button
+                // SkillButtons[i]
+                if (tempHolder.NeedToApply)
+                {
+                    AddNewSkill((Skills)i, true);
+                }
+            }
+        }
+
+    }
+
+    public void SaveSkills()
+    {
+        List<string> data = new List<string>();
+        for(int i = 0; i < 30; ++i)
+        {
+            data.Add(TestForSkill((Skills)i).ToString() + "," + TestForApplied(i).ToString());
+        }
+        File.WriteAllLines(Application.persistentDataPath + "/SkillsData.txt", data.ToArray());
+        //File.WriteAllText(Application.persistentDataPath + "/SkillsData.txt", data);
+    }
+
+    int TestForSkill(Skills skill)
+    {
+        int ret = 0;
+        for(int i = 0; i < CurrentSkills.Count; ++i)
+        {
+            if(CurrentSkills[i] == skill)
+            {
+                ret = 1;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    int TestForApplied(int ID)
+    {
+        return 0;
+    }
+
+    #endregion
+
+    public void ResetButtons()
+    {
+        // unlcok all buttons. (mainly for checkpoint stuff).
     }
 
     /// <summary>
@@ -172,9 +250,13 @@ public class SkillsController : MonoBehaviour
                 break;
         }
 
-        if(AddToCurrentSkillsList) CurrentSkills.Add(newSkill);
-
+        if (AddToCurrentSkillsList)
+        {
+            CurrentSkills.Add(newSkill);
+        }
     }
+
+    #region Skill Functions
 
     void IncreaseTimeToDetect(float Amount)
     {
@@ -370,6 +452,8 @@ public class SkillsController : MonoBehaviour
         PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();
     }
 
+    #endregion
+
     public void AddAllSkills()
     {
         for(int i = 0; i < 30; ++i)
@@ -381,6 +465,18 @@ public class SkillsController : MonoBehaviour
         }
     }
 
+}
+
+public class SkillHolder
+{
+    public bool Unlocked;
+    public bool NeedToApply;
+
+    public SkillHolder(string[] SkillFromText)
+    {
+        Unlocked = int.Parse(SkillFromText[0]) == 1 ? true : false;
+        NeedToApply = int.Parse(SkillFromText[1]) == 1 ? true : false;
+    }
 }
 
 #if UNITY_EDITOR
@@ -397,6 +493,8 @@ public class SkillsControllerEditor : Editor
         DisplaySkillValues();
 
         DisplayCurrentSkills();
+
+        SortButtonsList();
     }
 
     void DisplayCurrentSkills()
@@ -423,6 +521,20 @@ public class SkillsControllerEditor : Editor
             {
                 mySkillsCont.SkillValues[i] = EditorGUILayout.IntField(((SkillsController.Skills)i).ToString(), mySkillsCont.SkillValues[i]);
             }
+        }
+    }
+
+    void SortButtonsList()
+    {
+        if (GUILayout.Button("Sort Skill Buttons"))
+        {
+            SkillsController mySkillsCont = (SkillsController)target;
+            List<Button> SortedButtons = new List<Button>();
+            for(int i = 0; i < 30; ++i)
+            {
+                SortedButtons.Add(mySkillsCont.SkillButtons.Find(x => x.GetComponent<SkillTree>().Skill == (SkillsController.Skills)(i)));
+            }
+            mySkillsCont.SkillButtons = SortedButtons;
         }
     }
 

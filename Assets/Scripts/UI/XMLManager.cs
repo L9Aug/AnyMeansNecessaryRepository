@@ -36,7 +36,7 @@ public class XMLManager : MonoBehaviour {
     {        
 		int arrayLength = FindObjectsOfType<Base_Enemy>().Length;
         Base_Enemy[] tempEnemies = FindObjectsOfType<Base_Enemy>();
-
+        
         enemyDB.enemList.Clear();
 
         if (enemyDB.enemList.Count <= arrayLength)

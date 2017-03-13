@@ -19,6 +19,8 @@ public class ConsoleController : MonoBehaviour
 
     public Text LogText;
     public InputField ConsoleInput;
+    public GameObject Scrollbar;
+    public Image LogWindow;
     ConsoleFunctions conFuncs;
 
     public GameObject ConsoleObject;
@@ -26,14 +28,18 @@ public class ConsoleController : MonoBehaviour
     List<string> CommandHistory = new List<string>();
     int CommandHistItr = 0;
 
+    bool showLogScreen = false;
+    float ShowLogTime = 5;
+    float LogScreenTimer = 0;
+
     void Start()
     {
         CC = this;
         conFuncs = new ConsoleFunctions();
         conFuncs.CC = this;
         LogText.supportRichText = true;
-        conFuncs.Help();
         setupStateMachine();
+        conFuncs.Help();
     }
 
     void Update()
@@ -133,6 +139,11 @@ public class ConsoleController : MonoBehaviour
         RichTextPart1 += ColourToHex(TextColours[(int)logType]) + ">";
 
         LogText.text += "\n" + RichTextPart1 + text + RichTextPart2;
+
+        if(ConsoleSM.CurrentState.Name == "In-Active")
+        {
+            showLogScreen = true;
+        }
     }
 
     string ColourToHex(Color col)
@@ -152,6 +163,51 @@ public class ConsoleController : MonoBehaviour
     bool IsConsoleActive()
     {
         return isConsoleActive;
+    }
+
+    bool ShowLogScreen()
+    {
+        return showLogScreen;
+    }
+
+    bool HideLogScreen()
+    {
+        if(LogScreenTimer >= ShowLogTime || isConsoleActive)
+        {
+            LogScreenTimer = 0;
+            showLogScreen = false;
+            return true;
+        }
+        return false;
+    }
+
+    void BeginLogScreen()
+    {
+        ConsoleInput.gameObject.SetActive(false);
+        Scrollbar.gameObject.SetActive(false);
+
+        ConsoleObject.SetActive(true);
+
+        // Lower the alpha level of the log window.
+        LogText.color = new Color(LogText.color.r, LogText.color.g, LogText.color.b, 0.5f);
+        LogWindow.color = new Color(LogWindow.color.r, LogWindow.color.g, LogWindow.color.b, 0.5f);
+    }
+
+    void LogScreenUpdate()
+    {
+        LogScreenTimer += Time.deltaTime;
+    }
+
+    void EndLogScreen()
+    {
+        ConsoleInput.gameObject.SetActive(true);
+        Scrollbar.gameObject.SetActive(true);
+
+        ConsoleObject.SetActive(false);
+
+        // Lower the alpha level of the log window.
+        LogText.color = new Color(LogText.color.r, LogText.color.g, LogText.color.b, 1);
+        LogWindow.color = new Color(LogWindow.color.r, LogWindow.color.g, LogWindow.color.b, 1);
     }
 
     void ActivateConsole()
@@ -174,10 +230,14 @@ public class ConsoleController : MonoBehaviour
         isConsoleActive.Condition = IsConsoleActive;
         NotCondition notIsConsoleActive = new NotCondition();
         notIsConsoleActive.Condition = isConsoleActive;
+        BoolCondition ShowLogScreenCond = new BoolCondition(ShowLogScreen);
+        BoolCondition HideLogScreenCond = new BoolCondition(HideLogScreen);
 
         // Transitions
         Transition ActivateConsoleTransFunc = new Transition("Activate Console", isConsoleActive, ActivateConsole);
         Transition DeactivateConsoleTransFunc = new Transition("de-Activate Console", notIsConsoleActive, DeactivateConsole);
+        Transition GotoLogScreen = new Transition("Go to Log Screen", ShowLogScreenCond);
+        Transition LeaveLogScreen = new Transition("Leave Log Screen", HideLogScreenCond);
 
         // States
         State Active = new State("Active",
@@ -187,17 +247,25 @@ public class ConsoleController : MonoBehaviour
             null);
 
         State InActive = new State("In-Active",
-            new List<Transition>() { ActivateConsoleTransFunc },
+            new List<Transition>() { ActivateConsoleTransFunc, GotoLogScreen },
             null,
             null,
             null);
 
+        State ShowLog = new State("Show Log",
+            new List<Transition>() { LeaveLogScreen },
+            new List<Action>() { BeginLogScreen },
+            new List<Action>() { LogScreenUpdate },
+            new List<Action>() { EndLogScreen });
+
         // Set target States for transitions
         ActivateConsoleTransFunc.SetTargetState(Active);
         DeactivateConsoleTransFunc.SetTargetState(InActive);
+        GotoLogScreen.SetTargetState(ShowLog);
+        LeaveLogScreen.SetTargetState(InActive);
 
         // Create the machine and initialise it.
-        ConsoleSM = new StateMachine(null, InActive, Active);
+        ConsoleSM = new StateMachine(null, InActive, Active, ShowLog);
         ConsoleSM.InitMachine();
     }
 
