@@ -33,9 +33,9 @@ public class UIElements : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ContextText = contextText.gameObject;
         ammoCount.text = ammo.ToString() + "/30";
         requiredXpForLevel = 25 * (Mathf.Pow(level, 2) + level + 2);
-        ContextText = contextText.gameObject;
         AlertedImage = alertedimage.gameObject;
         //ContextText = FindObjectOfType<Text>
         //print(requiredXpForLevel);

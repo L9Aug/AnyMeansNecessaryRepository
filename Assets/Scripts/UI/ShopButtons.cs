@@ -66,8 +66,7 @@ public class ShopButtons : MonoBehaviour {
     public void SellItems()
     {
         selling = true;
-        print(selling);
-       
-        
+        PauseMenu.MenuOfPause.SetTransitionTarget(true, PauseMenu.PausedMachine.PausedMenu, PauseMenu.PausedMenuMachine.Inventory);
+        print(selling); 
     }
 }

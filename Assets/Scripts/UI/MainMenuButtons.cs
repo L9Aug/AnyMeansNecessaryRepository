@@ -24,7 +24,7 @@ public class MainMenuButtons : MonoBehaviour {
 
     public void newGame()
     {
-
+        SceneManager.LoadScene("HubWorldBlockoutV2");
     }
 
     public void Continue()

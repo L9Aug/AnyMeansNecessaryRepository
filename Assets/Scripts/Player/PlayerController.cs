@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Player State Machine
     /// </summary>
-    public SM.StateMachine PSM;
+    public SM.StateMachine PSM ;
 
     private bool Dying = false;
 
@@ -47,14 +47,9 @@ public class PlayerController : MonoBehaviour
     private float DeathLength = 5;
 
     // Use this for initialization
-    void Awake()
-    {
-        PC = this;
-    }
-
     void Start()
     {
-        
+        PC = this;
         AnimTest();
         PlayerCam = Camera.main;
         pauseMenu = FindObjectOfType<PauseMenu>();

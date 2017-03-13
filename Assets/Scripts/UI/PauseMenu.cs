@@ -259,7 +259,8 @@ public class PauseMenu : MonoBehaviour
 
         if(inDialogRange == true)
         {
-            if(Input.GetButtonDown("Interact"))
+            UIElements.ContextText.GetComponent<Text>().text = "Press 'F' to talk";
+            if (Input.GetButtonDown("Interact"))
             {
                 SetTransitionTarget(true, PausedMachine.Dialog);
             }
