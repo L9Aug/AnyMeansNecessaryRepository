@@ -85,7 +85,6 @@ public class FieldOfView : MonoBehaviour
                                 {
                                     if (CurrentWeapon.Fire(targetsInViewRadius[i].transform.position + new Vector3(0, 1.4f, 0), 1 << 8, 1, true, true))
                                     {
-                                    Debug.Log("fired");
                                         Anim.SetTrigger("Fire");
                                     }
                                 }

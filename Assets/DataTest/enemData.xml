@@ -3,6 +3,20 @@
   <enemList>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>29.087738</x>
+        <y>-0.952590942</y>
+        <z>-23.193634</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.273139</y>
+        <z>0</z>
+        <w>-0.9619746</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>31.7022781</y>
+=======
         <x>29.0387726</x>
         <y>-1.21798706</y>
         <z>-18.2780838</z>
@@ -15,6 +29,7 @@
         <eulerAngles>
           <x>0</x>
           <y>0.2683046</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -25,6 +40,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>84.15997</x>
+        <y>-0.952590942</y>
+        <z>-66.38015</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.735124946</y>
+        <z>0</z>
+        <w>-0.6779317</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>94.6355438</y>
+=======
         <x>88.92802</x>
         <y>-0.9492645</y>
         <z>-66.31157</z>
@@ -37,6 +66,7 @@
         <eulerAngles>
           <x>0</x>
           <y>91.09878</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -48,7 +78,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>50.79979</x>
+<<<<<<< HEAD
+        <y>2.58369446</y>
+=======
         <y>2.36878967</y>
+>>>>>>> origin/Lee_Development
         <z>-80.3333359</z>
       </enemPos>
       <enemyRot>
@@ -69,6 +103,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>112.972404</x>
+        <y>-0.9216919</y>
+        <z>-33.1708679</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>270</y>
+=======
         <x>112.999779</x>
         <y>-1.19790649</y>
         <z>-33.16667</z>
@@ -81,6 +129,7 @@
         <eulerAngles>
           <x>0</x>
           <y>161.851654</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -91,6 +140,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>31.74379</x>
+        <y>2.48234558</y>
+        <z>29.5004272</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>270</y>
+=======
         <x>35.2330475</x>
         <y>2.298462</y>
         <z>25.5533447</z>
@@ -103,6 +166,7 @@
         <eulerAngles>
           <x>0</x>
           <y>246.225159</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -113,6 +177,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>90.89773</x>
+        <y>-0.952590942</y>
+        <z>-5.80979156</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.7791801</y>
+        <z>0</z>
+        <w>-0.6268002</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>102.371132</y>
+=======
         <x>105.063644</x>
         <y>-0.949249268</y>
         <z>-4.960602</z>
@@ -125,6 +203,7 @@
         <eulerAngles>
           <x>0</x>
           <y>307.899231</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -136,7 +215,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>124.459778</x>
+<<<<<<< HEAD
+        <y>4.03739929</y>
+=======
         <y>3.72660828</y>
+>>>>>>> origin/Lee_Development
         <z>-19.19484</z>
       </enemPos>
       <enemyRot>
@@ -158,7 +241,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>112.999786</x>
+<<<<<<< HEAD
+        <y>-0.9056549</y>
+=======
         <y>-1.07896423</y>
+>>>>>>> origin/Lee_Development
         <z>-28.0448456</z>
       </enemPos>
       <enemyRot>
@@ -179,9 +266,15 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>120.539543</x>
+        <y>3.19732666</y>
+        <z>-51.1496964</z>
+=======
         <x>120.539444</x>
         <y>2.92857361</y>
         <z>-51.14969</z>
+>>>>>>> origin/Lee_Development
       </enemPos>
       <enemyRot>
         <x>0</x>
@@ -201,8 +294,13 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>73.1798248</x>
+        <y>12.9850769</y>
+=======
         <x>73.1797943</x>
         <y>12.84433</y>
+>>>>>>> origin/Lee_Development
         <z>-85</z>
       </enemPos>
       <enemyRot>
@@ -224,7 +322,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>85.7697754</x>
+<<<<<<< HEAD
+        <y>-0.952590942</y>
+=======
         <y>-0.9492645</y>
+>>>>>>> origin/Lee_Development
         <z>1.00515747</z>
       </enemPos>
       <enemyRot>
@@ -245,6 +347,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>43.1128845</x>
+        <y>-0.952590942</y>
+        <z>-63.87005</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>0.0107239848</y>
+        <z>0</z>
+        <w>0.999942541</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>1.22890162</y>
+=======
         <x>43.3306427</x>
         <y>-0.9492645</y>
         <z>-58.7538147</z>
@@ -257,6 +373,7 @@
         <eulerAngles>
           <x>0</x>
           <y>3.87332058</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -268,7 +385,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>116.089783</x>
+<<<<<<< HEAD
+        <y>-0.952590942</y>
+=======
         <y>-1.21810913</y>
+>>>>>>> origin/Lee_Development
         <z>-81.21484</z>
       </enemPos>
       <enemyRot>
@@ -290,7 +411,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>78.4097748</x>
+<<<<<<< HEAD
+        <y>-0.952590942</y>
+=======
         <y>-1.253891</y>
+>>>>>>> origin/Lee_Development
         <z>-111.114853</z>
       </enemPos>
       <enemyRot>
@@ -311,6 +436,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>63.1268</x>
+        <y>-0.781600952</y>
+        <z>-102.328117</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.996681035</y>
+        <z>0</z>
+        <w>-0.0814065</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>170.661179</y>
+=======
         <x>59.61714</x>
         <y>-0.7779999</y>
         <z>-102.143791</z>
@@ -323,6 +462,7 @@
         <eulerAngles>
           <x>0</x>
           <y>278.179321</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -334,7 +474,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>63.4197845</x>
+<<<<<<< HEAD
+        <y>-0.9072418</y>
+=======
         <y>-1.08839417</y>
+>>>>>>> origin/Lee_Development
         <z>13.0751572</z>
       </enemPos>
       <enemyRot>
@@ -355,9 +499,15 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>75.56804</x>
+        <y>-0.952590942</y>
+        <z>-89.52951</z>
+=======
         <x>74.89978</x>
         <y>-0.949249268</y>
         <z>-89.59483</z>
+>>>>>>> origin/Lee_Development
       </enemPos>
       <enemyRot>
         <x>0</x>
@@ -377,6 +527,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>52.1898651</x>
+        <y>-0.952590942</y>
+        <z>2.922409</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.9474963</y>
+        <z>0</z>
+        <w>0.319766879</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>217.297653</y>
+=======
         <x>48.9781647</x>
         <y>-1.25552368</y>
         <z>-1.433136</z>
@@ -389,6 +553,7 @@
         <eulerAngles>
           <x>0</x>
           <y>216.154556</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -399,6 +564,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>52.85106</x>
+        <y>-0.952590942</y>
+        <z>-56.7076645</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>-0.9943782</y>
+        <z>0</z>
+        <w>0.105887339</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>192.156586</y>
+=======
         <x>52.1473236</x>
         <y>-0.9492645</y>
         <z>-60.82448</z>
@@ -411,6 +590,7 @@
         <eulerAngles>
           <x>0</x>
           <y>190.04158</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -422,7 +602,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>18.804306</x>
+<<<<<<< HEAD
+        <y>-1.002594</y>
+=======
         <y>-1.304779</y>
+>>>>>>> origin/Lee_Development
         <z>36.6736755</z>
       </enemPos>
       <enemyRot>
@@ -443,6 +627,20 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>113.190437</x>
+        <y>-0.5188751</y>
+        <z>-32.0442734</z>
+      </enemPos>
+      <enemyRot>
+        <x>0</x>
+        <y>0.311382651</y>
+        <z>0</z>
+        <w>0.95028466</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>36.2851524</y>
+=======
         <x>118.4749</x>
         <y>-0.8677521</y>
         <z>-33.1527557</z>
@@ -455,6 +653,7 @@
         <eulerAngles>
           <x>0</x>
           <y>89.94292</y>
+>>>>>>> origin/Lee_Development
           <z>0</z>
         </eulerAngles>
       </enemyRot>
@@ -465,8 +664,13 @@
     </EnemDataToSave>
     <EnemDataToSave>
       <enemPos>
+<<<<<<< HEAD
+        <x>102.89344</x>
+        <y>2.61201477</y>
+=======
         <x>102.893433</x>
         <y>2.54629517</y>
+>>>>>>> origin/Lee_Development
         <z>-35.8615723</z>
       </enemPos>
       <enemyRot>
@@ -488,7 +692,11 @@
     <EnemDataToSave>
       <enemPos>
         <x>38.50978</x>
+<<<<<<< HEAD
+        <y>-0.952590942</y>
+=======
         <y>-0.949249268</y>
+>>>>>>> origin/Lee_Development
         <z>-58.52484</z>
       </enemPos>
       <enemyRot>
@@ -513,6 +721,20 @@
   <PlayerLevel>0</PlayerLevel>
   <ammoCount>0</ammoCount>
   <PlayerPos>
+<<<<<<< HEAD
+    <x>120.41066</x>
+    <y>-0.952590942</y>
+    <z>-118.203674</z>
+  </PlayerPos>
+  <PlayerRot>
+    <x>0</x>
+    <y>0.0880250558</y>
+    <z>0</z>
+    <w>0.996118248</w>
+    <eulerAngles>
+      <x>0</x>
+      <y>10.1</y>
+=======
     <x>120.539474</x>
     <y>-0.952590942</y>
     <z>-118.23143</z>
@@ -525,6 +747,7 @@
     <eulerAngles>
       <x>0</x>
       <y>4.89999628</y>
+>>>>>>> origin/Lee_Development
       <z>0</z>
     </eulerAngles>
   </PlayerRot>

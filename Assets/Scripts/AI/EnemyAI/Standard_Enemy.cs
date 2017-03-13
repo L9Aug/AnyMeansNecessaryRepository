@@ -10,6 +10,7 @@ public class Standard_Enemy : Base_Enemy {
 
     void Update()
     {
+
         FSM();
     }
 
@@ -21,6 +22,7 @@ public class Standard_Enemy : Base_Enemy {
                 GetComponent<Enemy_Chase>().checkLost(GetComponent<FieldOfView>().FindVisibleTargets()); // constantly searches if player is within detection radius
                 GetComponent<BodyDetection>().FindBodies();
                 GetComponent<EnvironmentDetection>().Detection();
+                GetComponent<AudioDetection>().audioDetection();
                 GetComponent<Enemy_Patrol>().Patrol();
                 break;
 
@@ -48,8 +50,6 @@ public class Standard_Enemy : Base_Enemy {
                 break;
 
             case State.Stunned:
-                Debug.Log("asdasd");
-
                 Stunai();
                 break;
 

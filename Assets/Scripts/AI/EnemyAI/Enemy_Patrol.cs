@@ -58,7 +58,7 @@ public class Enemy_Patrol : MonoBehaviour {
         }
             MoveDirection = Target - Agent.transform.position;
 
-            if (!GetComponent<EnvironmentDetection>().Detection())
+        if (!GetComponent<EnvironmentDetection>().Detection() && !GetComponent<AudioDetection>().audioDetection())
             {
                 if (MoveDirection.magnitude < 1)
                 {

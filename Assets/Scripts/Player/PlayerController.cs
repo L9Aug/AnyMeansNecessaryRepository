@@ -95,7 +95,18 @@ public class PlayerController : MonoBehaviour
             Dying = true;
         }
     }
+    //void weaponAudioSpawn()
+    //{
+    //    Debug.Log(CurrentWeapon);
+    //    if (CurrentWeapon is Sniper)
+    //    {
+    //        this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 280);
+    //    }else if (CurrentWeapon is ProjectileGun)
+    //    {
+    //        this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 280);
 
+    //    }
+  //  }
     void WeaponChecks()
     {
         if (Time.timeScale > 0.01 && PMC.PMSM.GetCurrentState() == "Movement")
@@ -113,6 +124,7 @@ public class PlayerController : MonoBehaviour
                     // 1 << 10 is the AI layer.
                     if (CurrentWeapon.Fire(GunTarget, 1 << 10, 0, false, true))
                     {
+                       // weaponAudioSpawn();
                         if (AnimTest())
                         {
                             anim.SetTrigger("Fire");
@@ -236,7 +248,7 @@ public class PlayerController : MonoBehaviour
             Animator TargetAnim = Target.GetComponent<Animator>(); // get the animator of the AI
 
             //Target.GetComponent<Base_Enemy>().setState(SnapNeck ? Base_Enemy.State.Dead : Base_Enemy.State.Stunned); // turn off the AI
-            Target.GetComponent<Base_Enemy>().setState(SnapNeck ? Base_Enemy.State.Dead : Base_Enemy.State.Dead); // turn off the AI
+            Target.GetComponent<Base_Enemy>().setState(SnapNeck ? Base_Enemy.State.Dead : Base_Enemy.State.Stunned); // turn off the AI
             if (!GrabSpeed)
             {
                 Target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -245,10 +257,12 @@ public class PlayerController : MonoBehaviour
                 TargetAnim.applyRootMotion = false;
                 //Anim.applyRootMotion = true;
 
-                TargetAnim.SetTrigger("Takedown"); // trigger the animations for both the AI and the Player.
+                if(Target.GetComponent<Base_Enemy>()._state != Base_Enemy.State.Stunned)
+                     TargetAnim.SetTrigger("Takedown"); // trigger the animations for both the AI and the Player.
                 if (AnimTest())
                 {
-                    anim.SetTrigger("Takedown");
+                        anim.SetTrigger("Takedown");
+
                 }
 
                 //Put the player into the takedown state
