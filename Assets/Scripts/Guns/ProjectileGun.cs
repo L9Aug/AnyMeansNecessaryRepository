@@ -15,10 +15,6 @@ public class ProjectileGun : BaseGun
             {
                 if (Magazine > 0)
                 {
-                    if (this.transform.parent.name == "GunHolder")
-                    {
-                        gunAudioSpawn();
-                    }
                     //can fire
                     Vector3 bulletEndDestination = Target() + (Varience * Random.insideUnitSphere);
 

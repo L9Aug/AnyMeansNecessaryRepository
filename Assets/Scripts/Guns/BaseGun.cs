@@ -55,6 +55,7 @@ public class BaseGun : MonoBehaviour {
     protected bool OnCooldown = false;
     protected float cooldownTimer = 0;
     protected int Magazine;
+    protected SpawnAudio myAudioSpawner;
 
     public delegate Vector3 TargetFunc();
     public delegate void UpdateWeapon(int magazine, int magazineSize);
@@ -63,40 +64,24 @@ public class BaseGun : MonoBehaviour {
     public List<OnFireCallback> OnFireCallbacks = new List<OnFireCallback>();
     public UpdateWeapon updateWeapon;
     public ReloadUpdate reloadUpdate;
-    public string WeaponType;
+    public int AudioRange;
 
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
+        myAudioSpawner = GetComponent<SpawnAudio>();
         ReloadAction();
         CallUpdateWeapon();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    protected void gunAudioSpawn()
+    public void GunAudioSpawn()
     {
-        if (WeaponType == "SilencedPistol")
+        if (!isSilenced)
         {
-            Debug.Log("Silenced Pistol fired - No AudioSpere");
-
-        }else if (WeaponType == "AssaultRifle")
-        {
-            this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 20);
-
-        }
-        else if (WeaponType == "Sniper")
-        {
-            this.GetComponent<SpawnAudio>().spawnAudio(this.transform.position, 35);
-        }
-        else
-        {
-            Debug.Log("Weapontype variable not entered within unity interface");
+            myAudioSpawner.spawnAudio(transform.position, AudioRange);
         }
     }
+
     /// <summary>
     /// Fires this gun if the gun is able to fire.
     /// </summary>

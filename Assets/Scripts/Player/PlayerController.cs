@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
                     // 1 << 10 is the AI layer.
                     if (CurrentWeapon.Fire(GunTarget, 1 << 10, 0, false, true))
                     {
-                       // weaponAudioSpawn();
+                        CurrentWeapon.GunAudioSpawn();
                         if (AnimTest())
                         {
                             anim.SetTrigger("Fire");
