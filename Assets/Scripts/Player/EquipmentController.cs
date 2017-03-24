@@ -18,6 +18,9 @@ public class EquipmentController : MonoBehaviour
     [HideInInspector]
     public bool InfiniteAmmo = false;
 
+    [HideInInspector]
+    public bool SilentSniper = false;
+
     private int currentEquipment = 0;
     private Transform rightHand;
     private bool isAssigningEquipment = false;
@@ -92,8 +95,10 @@ public class EquipmentController : MonoBehaviour
                         bg.AmmoReserve = Ammo.Find(x => x.itemName.Contains(item.itemName)).currentStack;
                         if (PlayerController.PC.bleedDamage) bg.OnFireCallbacks.Add(PlayerController.PC.AddBleedDamage);
                         if (PlayerController.PC.Stalker) bg.OnFireCallbacks.Add(PlayerController.PC.AddStalker);
+                        if (bg is Sniper) bg.isSilenced = SilentSniper;
                         bg.MagazineSize = (int)(bg.BaseMagazineSize * PlayerController.PC.MagazineSizeMultiplyer);
                         bg.Damage = (int)(bg.BaseDamage * PlayerController.PC.DamageMultiplyer);
+                        bg.AudioRange = (int)(bg.BaseAudioRange * PlayerController.PC.NoiseRangeMultiuplyer);
                     }
 
                     bg.InfiniteAmmo = InfiniteAmmo;

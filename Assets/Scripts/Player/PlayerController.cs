@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool GrabSpeed = false;
     public float MagazineSizeMultiplyer = 1;
     public float DamageMultiplyer = 1;
+    public float NoiseRangeMultiuplyer = 1;
 
     private List<GameObject> AIInRange = new List<GameObject>(); //list of AI that are in takedown range
     private bool CanTakedown = false;

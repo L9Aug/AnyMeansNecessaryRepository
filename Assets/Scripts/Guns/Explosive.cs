@@ -4,7 +4,9 @@ using System.Collections;
 public class Explosive : MonoBehaviour
 {
     public static float FuseLength = 3;
-    public float ExplosiveRange;
+    public static float BaseFuseLength = 3;
+    public static float BaseExplosionRange = 10;
+    public static float ExplosiveRange = 10;
     public float ExplosiveDamage;
     public GameObject ExplosionEffect;
 

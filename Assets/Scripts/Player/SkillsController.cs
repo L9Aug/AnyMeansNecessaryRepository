@@ -28,8 +28,8 @@ public class SkillsController : MonoBehaviour
         Ammo, LargerMag, Health2, Damage2, Armour,
 
         // Non-Lethal Skills
-        KnockedOut, TranqSpeed, GrabSpeed, Conversation, Distraction,
-        TranqUses, Conversation2, KnockedOut2, Distraction2, TranqUses2,
+        KnockedOut, TranqSpeed, GrabSpeed, DistractionUses, Distraction,
+        TranqUses, DistractionUses2, KnockedOut2, Distraction2, TranqUses2,
     }
 
     [HideInInspector]
@@ -107,7 +107,7 @@ public class SkillsController : MonoBehaviour
 
     public void ResetButtons()
     {
-        // unlcok all buttons. (mainly for checkpoint stuff).
+        // unlock all buttons. (mainly for checkpoint stuff).
     }
 
     /// <summary>
@@ -218,12 +218,12 @@ public class SkillsController : MonoBehaviour
                 AddGrabSpeed();
                 break;
 
-            case Skills.Conversation:
-                ImproveConversation(SkillValues[(int)newSkill]);
+            case Skills.DistractionUses:
+                AddDistractionUses(SkillValues[(int)newSkill]);
                 break;
 
-            case Skills.Conversation2:
-                ImproveConversation(SkillValues[(int)newSkill]);
+            case Skills.DistractionUses2:
+                AddDistractionUses(SkillValues[(int)newSkill]);
                 break;
 
             case Skills.Distraction:
@@ -265,7 +265,8 @@ public class SkillsController : MonoBehaviour
     /// <param name="Amount">Amount as a percentage</param>
     void DecreaseNoiseRange(float Amount)
     {
-        // Waiting for the AI to detect through audio to know what to change.
+        PlayerController.PC.NoiseRangeMultiuplyer = 1 - (Amount / 100);
+        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();
     }
 
     /// <summary>
@@ -307,7 +308,7 @@ public class SkillsController : MonoBehaviour
 
     void AddSilencedSniper()
     {
-
+        PlayerController.PC.GetComponent<EquipmentController>().SilentSniper = true;
     }
 
     void IncreasePlayerHealth(float Amount)
@@ -339,7 +340,7 @@ public class SkillsController : MonoBehaviour
     /// <param name="Amount">Amount as a percentage</param>
     void IncreaseExplosiveRange(float Amount)
     {
-
+        Explosive.ExplosiveRange -= Explosive.BaseExplosionRange * (Amount / 100f);
     }
 
     void AddBleedDamage()
@@ -362,7 +363,7 @@ public class SkillsController : MonoBehaviour
     /// <param name="Amount">Amount as a percentage</param>
     void ReduceExplosiveTimers(float Amount)
     {
-
+        Explosive.FuseLength -= Explosive.BaseFuseLength * (Amount / 100f);
     }
 
     /// <summary>
@@ -419,7 +420,7 @@ public class SkillsController : MonoBehaviour
     /// <param name="Amount">Amount as a percentage</param>
     void ReduceTranqSpeed(float Amount)
     {
-
+        TranqEffect.TranqSpeed -= TranqEffect.BaseTranqSpeed * (Amount / 100f);
     }
 
     void AddGrabSpeed()
@@ -427,13 +428,13 @@ public class SkillsController : MonoBehaviour
         PlayerController.PC.GrabSpeed = true;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="Amount">Amount as a percentage</param>
-    void ImproveConversation(float Amount)
+    void AddDistractionUses(int Amount)
     {
-
+        List<Items> Distractions = ItemDataBase.InventoryDataBase.itemList.FindAll(x => x.itemType == Items.TypeofItem.EquipAndConsume);
+        foreach(Items item in Distractions)
+        {
+            item.maxItemStack += Amount;
+        }
     }
 
     void IncreaseDistractionTime(float Amount)
