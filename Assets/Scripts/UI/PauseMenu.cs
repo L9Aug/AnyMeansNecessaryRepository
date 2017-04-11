@@ -177,7 +177,17 @@ public class PauseMenu : MonoBehaviour
 
     void ReloadPlayer()
     {
-       
+        StartCoroutine(ReloadPlayerEnumerator());
+    }
+
+    // allows the player to load when loading from checkpoints
+    IEnumerator ReloadPlayerEnumerator()
+    {
+        while(PlayerController.PC == null)
+        {
+            yield return null;
+        }
+
         PlayerController.PC.transform.rotation = XMLManager.instance.enemyDB.PlayerRot;
         PlayerController.PC.GetComponent<HealthComp>().SetHealth(XMLManager.instance.enemyDB.PlayerHealth);
         if (XMLManager.instance.enemyDB.PlayerHealth > 0)
@@ -189,8 +199,8 @@ public class PauseMenu : MonoBehaviour
         PlayerController.PC.transform.position = XMLManager.instance.enemyDB.PlayerPos;//moves player to checkpoint position
         SkillsController.SC.LoadSkillsFromFile();
         ItemDataBase.InventoryDataBase.LoadInventory();
-        
-        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();        
+
+        PlayerController.PC.GetComponent<EquipmentController>().UpdateEquipment();
     }
 
     #endregion
