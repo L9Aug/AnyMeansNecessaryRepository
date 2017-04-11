@@ -65,6 +65,7 @@ public class BaseGun : MonoBehaviour {
     public UpdateWeapon updateWeapon;
     public ReloadUpdate reloadUpdate;
     public int AudioRange;
+    public int BaseAudioRange;
 
 	// Use this for initialization
 	void Start () {
@@ -76,7 +77,7 @@ public class BaseGun : MonoBehaviour {
 
     public void GunAudioSpawn()
     {
-        if (!isSilenced)
+        if (!isSilenced && myAudioSpawner != null)
         {
             myAudioSpawner.spawnAudio(transform.position, AudioRange);
         }

@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour {
 
     Vector3 Velocity;
     Vector3 PreviousPosition;
-    bool useHeadshotDamage;
+    protected bool useHeadshotDamage;
 
     void FixedUpdate()
     {
@@ -43,7 +43,7 @@ public class Projectile : MonoBehaviour {
         StartCoroutine(Lifetime(ProjectileLife));
     }
 
-    void Collided(Collider other)
+    protected virtual void Collided(Collider other)
     {
         foreach(CollisionCallback collisionCallback in CollisionCallbacks)
         {
