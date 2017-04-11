@@ -18,11 +18,6 @@ public class CivilianAI_Main : MonoBehaviour {
 
         Agent = GetComponent<NavMeshAgent>();
         GetComponent<HealthComp>().healthChanged.Add(HealthTest);
-
-        hidePoints[0] = GameObject.Find("HideLocations 1").transform;
-        hidePoints[1] = GameObject.Find("HideLocations 2").transform;
-        hidePoints[2] = GameObject.Find("HideLocations 3").transform;
-        hidePoints[3] = GameObject.Find("HideLocations 4").transform;
     }
 
     void HealthTest(float health, float ChangeInHealth, float armour)
@@ -34,11 +29,13 @@ public class CivilianAI_Main : MonoBehaviour {
             GetComponent<Animator>().SetTrigger("Takedown");
         }
     }
+
     // Update is called once per frame
     void Update()
     {
         FSM();
     }
+
     void FSM()
     {
         switch (_state)
@@ -61,10 +58,12 @@ public class CivilianAI_Main : MonoBehaviour {
         FLEE,        //chase player
         DEAD,       //Attack player if siutation correct
     }
+
     public void setState(State newState)
     {
         _state = newState; // assigns new state based on value inputted.
     }
+
     private void Flee()
     {
         if (!Scared)
