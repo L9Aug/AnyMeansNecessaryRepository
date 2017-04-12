@@ -135,6 +135,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         SetTransitionTarget(false);
+        PauseStateMachine.ForceTransition(PauseStateMachine.CurrentState.Transitions[0]);
     }
 
     public void reloadCheckpoint() //reloads to checkpoint
