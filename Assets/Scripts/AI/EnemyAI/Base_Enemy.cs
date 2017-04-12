@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Base_Enemy : MonoBehaviour 
 {
@@ -17,6 +18,8 @@ public class Base_Enemy : MonoBehaviour
     private bool Stunned;
     private float currentStunTimer;
 
+    public List<AudioClip> DeathSounds = new List<AudioClip>();
+    public AudioSource myAudioSource;
 
     void Start()
     {
@@ -51,6 +54,11 @@ public class Base_Enemy : MonoBehaviour
             Agent.velocity = Vector3.zero; // stops ai from sliding to last set destination
             killCount++;
             canvas.GetComponent<UIElements>().xpGain(15);
+
+            if(DeathSounds.Count > 0)
+            {
+                myAudioSource.PlayOneShot(DeathSounds[Random.Range(0, DeathSounds.Count)]);
+            }
 
             setState(State.Dead);
             if (gameObject.tag == "StandardEnemy")

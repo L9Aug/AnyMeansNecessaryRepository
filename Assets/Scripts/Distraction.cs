@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Distraction : MonoBehaviour {
+public class Distraction : MonoBehaviour
+{
     public static float objectDestroyInSeconds = 10;
     private float objectDestroyTimer = 0;
-	
-	// Update is called once per frame
-	void Update () {
+    public AudioEffectController myDistAEC;
+
+    // Update is called once per frame
+    void Update () {
         objectDestroyTimer += Time.deltaTime;
 
         if(objectDestroyTimer >= objectDestroyInSeconds)
@@ -14,4 +16,9 @@ public class Distraction : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        myDistAEC.PlayAudio();
+    }
 }

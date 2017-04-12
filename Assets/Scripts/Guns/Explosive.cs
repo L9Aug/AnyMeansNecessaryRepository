@@ -10,12 +10,15 @@ public class Explosive : MonoBehaviour
     public float ExplosiveDamage;
     public GameObject ExplosionEffect;
 
+    public AudioEffectController Beeps;
+
     float Timer;
     int layersToHit = (1 << 10);
 
     private void Start()
     {
         Timer = 0;
+        Beeps.PlayAudio();
         StartCoroutine(CountDown());
     }
 

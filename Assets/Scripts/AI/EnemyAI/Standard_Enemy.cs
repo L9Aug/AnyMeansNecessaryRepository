@@ -7,7 +7,6 @@ public class Standard_Enemy : Base_Enemy {
     /// CODED BY LEE BROOKES - UP687102  - LEEBROOKES@LIVE.COM
     /// </summary>
 
-
     void Update()
     {
 

@@ -195,12 +195,21 @@ public class BaseGun : MonoBehaviour {
     {
         if (!Reloading)
         {
-            Reloading = true;
-            if(ReloadingSounds.Count > 0)
+            if (Magazine < MagazineSize)
             {
-                audioSource.PlayOneShot(ReloadingSounds[Random.Range(0, ReloadingSounds.Count)]);
+                if (!InfiniteAmmo)
+                {
+                    if (AmmoReserve - Magazine > 0)
+                    {
+                        Reloading = true;
+                        if (ReloadingSounds.Count > 0)
+                        {
+                            audioSource.PlayOneShot(ReloadingSounds[Random.Range(0, ReloadingSounds.Count)]);
+                        }
+                        StartCoroutine(ReloadTick());
+                    }
+                }
             }
-            StartCoroutine(ReloadTick());
         }
     }
 
