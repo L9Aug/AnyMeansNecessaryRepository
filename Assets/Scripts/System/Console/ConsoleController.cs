@@ -11,7 +11,10 @@ public class ConsoleController : MonoBehaviour
     public static ConsoleController CC;
 
     StateMachine ConsoleSM;
+    [HideInInspector]
     public bool isConsoleActive = false;
+
+    public bool ShowConsoleOnNewMessage = false;
 
     public enum LogType { Standard, Command, Error }
 
@@ -140,7 +143,7 @@ public class ConsoleController : MonoBehaviour
 
         LogText.text += "\n" + RichTextPart1 + text + RichTextPart2;
 
-        if(ConsoleSM.CurrentState.Name == "In-Active")
+        if(ConsoleSM.CurrentState.Name == "In-Active" && ShowConsoleOnNewMessage)
         {
             showLogScreen = true;
         }
