@@ -138,7 +138,6 @@ public class BaseGun : MonoBehaviour {
         return Fire(() => { return Target; }, TargetLayer, Varience, DebugDraw, InGameDraw);
     }
 
-
     protected void CallOnFireCallbacks(GameObject projectile)
     {
         foreach(OnFireCallback callback in OnFireCallbacks)
@@ -154,6 +153,7 @@ public class BaseGun : MonoBehaviour {
     {
         OnCooldown = true;
         --Magazine;
+        --AmmoReserve;
 
         CallOnFireCallbacks(projectile);
 
@@ -163,6 +163,10 @@ public class BaseGun : MonoBehaviour {
         }
 
         CallUpdateWeapon();
+        if (reloadUpdate != null)
+        {
+            reloadUpdate(AmmoReserve, gameObject);
+        }
         StartCoroutine(CooldownTick());
     }
 
@@ -182,7 +186,7 @@ public class BaseGun : MonoBehaviour {
             }
             else
             {
-                updateWeapon(Magazine, AmmoReserve);
+                updateWeapon(Magazine, Mathf.Clamp(AmmoReserve - Magazine, 0, AmmoReserve));
             }
         }
     }
@@ -191,12 +195,21 @@ public class BaseGun : MonoBehaviour {
     {
         if (!Reloading)
         {
-            Reloading = true;
-            if(ReloadingSounds.Count > 0)
+            if (Magazine < MagazineSize)
             {
-                audioSource.PlayOneShot(ReloadingSounds[Random.Range(0, ReloadingSounds.Count)]);
+                if (!InfiniteAmmo)
+                {
+                    if (AmmoReserve - Magazine > 0)
+                    {
+                        Reloading = true;
+                        if (ReloadingSounds.Count > 0)
+                        {
+                            audioSource.PlayOneShot(ReloadingSounds[Random.Range(0, ReloadingSounds.Count)]);
+                        }
+                        StartCoroutine(ReloadTick());
+                    }
+                }
             }
-            StartCoroutine(ReloadTick());
         }
     }
 
@@ -246,17 +259,17 @@ public class BaseGun : MonoBehaviour {
         }
         else
         {
-            AmmoReserve += Magazine;
+            //AmmoReserve += Magazine;
 
             if(AmmoReserve < MagazineSize)
             {
                 Magazine = AmmoReserve;
-                AmmoReserve = 0;
+                //AmmoReserve = 0;
             }
             else
             {
                 Magazine = MagazineSize;
-                AmmoReserve -= MagazineSize;
+                //AmmoReserve -= MagazineSize;
             }
 
             if(reloadUpdate != null)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
     /// <summary>
     /// CODED BY LEE BROOKES - UP687102  - LEEBROOKES@LIVE.COM
@@ -9,6 +10,8 @@ public class Enemy_Was_Shot : MonoBehaviour {
     NavMeshAgent Agent;
     private GameObject Player;
     public Vector3 playerLastPos;
+    public List<AudioClip> PainSounds = new List<AudioClip>();
+    public AudioSource myAudioSource;
 
     // Use this for initialization
     void Start () {
@@ -27,7 +30,6 @@ public class Enemy_Was_Shot : MonoBehaviour {
 
     public void Shot()
     {
-
         PlayerShotLocation();
         if (gameObject.tag == "StandardEnemy")
         {
@@ -44,7 +46,16 @@ public class Enemy_Was_Shot : MonoBehaviour {
         {
             GetComponent<Hunter_Enemy>().setState(Base_Enemy.State.wasShot);
         }
-        return;
+
+        // pain audio
+        if (PainSounds.Count > 0)
+        {
+            if (!myAudioSource.isPlaying)
+            {
+                myAudioSource.PlayOneShot(PainSounds[Random.Range(0, PainSounds.Count)]);
+            }
+        }
+
     }
 
     private Vector3 distToLastPos;

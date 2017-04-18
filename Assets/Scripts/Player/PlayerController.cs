@@ -259,6 +259,7 @@ public class PlayerController : MonoBehaviour
 
             //Target.GetComponent<Base_Enemy>().setState(SnapNeck ? Base_Enemy.State.Dead : Base_Enemy.State.Stunned); // turn off the AI
             Target.GetComponent<Base_Enemy>().setState(SnapNeck ? Base_Enemy.State.Dead : Base_Enemy.State.Stunned); // turn off the AI
+            if (!SnapNeck) Target.GetComponent<AudioEffectController>().PlayAudio();
             if (!GrabSpeed)
             {
                 Target.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -267,12 +268,15 @@ public class PlayerController : MonoBehaviour
                 TargetAnim.applyRootMotion = false;
                 //Anim.applyRootMotion = true;
 
-                if(Target.GetComponent<Base_Enemy>()._state != Base_Enemy.State.Stunned)
-                     TargetAnim.SetTrigger("Takedown"); // trigger the animations for both the AI and the Player.
+                if (Target.GetComponent<Base_Enemy>()._state != Base_Enemy.State.Stunned)
+                {
+                    // trigger the animations for both the AI and the Player.
+                    TargetAnim.SetTrigger("Takedown");
+                }
+
                 if (AnimTest())
                 {
-                        anim.SetTrigger("Takedown");
-
+                    anim.SetTrigger("Takedown");
                 }
 
                 //Put the player into the takedown state

@@ -10,6 +10,12 @@ public class MainMenuButtons : MonoBehaviour {
     public static bool continueGame;
 
     public Button continueButton;
+    public GameObject MenuItems;
+    public GameObject CreditsObj;
+    public Animator CreditsAnimator;
+
+    bool InCredits = false;
+    float CreditsTimer;
 
     void Start()
     {
@@ -20,6 +26,18 @@ public class MainMenuButtons : MonoBehaviour {
         else
         {
             continueButton.interactable = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (InCredits)
+        {
+            CreditsTimer -= Time.deltaTime;
+            if (Input.GetButtonDown("Pause") || CreditsTimer <= 0)
+            {
+                EndCredits();
+            }
         }
     }
 
@@ -34,8 +52,7 @@ public class MainMenuButtons : MonoBehaviour {
     }
 
     public void Continue()
-    {
-        
+    {        
         SceneManager.LoadScene(XMLManager.instance.enemyDB.currentScene);
         continueGame = true;
     }
@@ -45,4 +62,20 @@ public class MainMenuButtons : MonoBehaviour {
         Application.Quit();
     }
 
+    public void BeginCredits()
+    {
+        MenuItems.SetActive(false);
+        CreditsObj.SetActive(true);
+        CreditsAnimator.SetTrigger("BeginCredits");
+        CreditsTimer = 66;
+        InCredits = true;
+    }
+
+    void EndCredits()
+    {
+        CreditsAnimator.SetTrigger("EndCredits");
+        CreditsObj.SetActive(false);
+        MenuItems.SetActive(true);
+        InCredits = false;
+    }
 }
