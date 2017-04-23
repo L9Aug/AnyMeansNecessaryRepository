@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SkillTree : MonoBehaviour
 {
-    public static int skillPoints = 0;
+    public static int skillPoints = 100;
 
     public bool intialSkill;
     public GameObject[] previousSkill;

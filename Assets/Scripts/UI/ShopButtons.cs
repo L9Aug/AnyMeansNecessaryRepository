@@ -20,6 +20,7 @@ public class ShopButtons : MonoBehaviour {
         if (itemCount < 20)
         {
             instantitiateItem();
+           
         }
         
     }
@@ -35,9 +36,16 @@ public class ShopButtons : MonoBehaviour {
             shopItemImage.GetComponent<Image>().sprite = ItemDataBase.InventoryDataBase.itemList[id[i]].itemSprite;
 
             shopItem[i] = Instantiate(shopItemImage,SpawnPosition.transform,false) as Button;
-
-            shopItem[i].GetComponent<RectTransform>().localPosition = SpawnPosition.transform.position;
+            if((itemCount % 5) == 0 && itemCount != 0)
+            {
+                position.x = 0.0f;
+                position = position + new Vector3(0, 150, 0);
+            }
+            position = position + new Vector3(165, 0, 0);
+            shopItem[i].GetComponent<RectTransform>().localPosition = SpawnPosition.transform.position + position;
             
+          
+
             shopItem[i].GetComponent<ItemEnum>().thisItem = (ItemEnum.Item)id[i];
 
             shopItem[i].onClick.AddListener(delegate { purchaseItem(id[i - 1]); });            

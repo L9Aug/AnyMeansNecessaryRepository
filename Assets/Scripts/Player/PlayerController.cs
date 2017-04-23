@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
     void InteractionChecks()
     {
-        UIElements.ContextText.GetComponent<UnityEngine.UI.Text>().text = "";
+        //UIElements.ContextText.GetComponent<UnityEngine.UI.Text>().text = "";
         GameObject interactionTarget = CheckTakedownFOV();
         LootingCheck(interactionTarget);
         TakedownCheck(interactionTarget);
