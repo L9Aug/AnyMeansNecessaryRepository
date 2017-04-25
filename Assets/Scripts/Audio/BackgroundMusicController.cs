@@ -26,7 +26,7 @@ public class BackgroundMusicController : MonoBehaviour
                 PlayNextTrack();
             }
         }
-    } 
+    }
 
     void PlayNextTrack()
     {
