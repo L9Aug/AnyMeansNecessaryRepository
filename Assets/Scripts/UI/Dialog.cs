@@ -6,13 +6,17 @@ public class Dialog : MonoBehaviour {
 
 
    
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider col)
     {
-        UIElements.ContextText.GetComponent<Text>().text = "Press 'F' to talk";
-        PauseMenu.MenuOfPause.inDialogRange = true;
-        if(Mission_Giver.missionCompleted)
+        if (col.tag == "Player")
         {
-            Dialogbut.staticDialogBtn.dialogText();
+            UIElements.ContextText.GetComponent<Text>().text = "Press 'F' to talk";
+
+            PauseMenu.MenuOfPause.inDialogRange = true;
+            if (Mission_Giver.missionCompleted)
+            {
+                Dialogbut.staticDialogBtn.dialogText();
+            }
         }
     }
 
